@@ -10,7 +10,7 @@ import {
   userInfoState,
 } from "@/state";
 import { Product } from "@/types";
-import { getConfig } from "@/utils/template";
+import { getConfig } from "@/components/shared/utils/template";
 import { authorize, createOrder, openChat } from "zmp-sdk/apis";
 import { useAtomCallback } from "jotai/utils";
 
@@ -109,44 +109,6 @@ export function useToBeImplemented() {
     toast("Chức năng dành cho các bên tích hợp phát triển...", {
       icon: "🛠️",
     });
-}
-
-export function useCheckout() {
-  const { totalAmount } = useAtomValue(cartTotalState);
-  const [cart, setCart] = useAtom(cartState);
-  const requestInfo = useRequestInformation();
-  const navigate = useNavigate();
-  const refreshNewOrders = useSetAtom(ordersState("pending"));
-
-  return async () => {
-    try {
-      await requestInfo();
-      await createOrder({
-        amount: totalAmount,
-        desc: "Thanh toán đơn hàng",
-        item: cart.map((item) => ({
-          id: item.product.id,
-          name: item.product.name,
-          price: item.product.price,
-          quantity: item.quantity,
-        })),
-      });
-      setCart([]);
-      refreshNewOrders();
-      navigate("/orders", {
-        viewTransition: true,
-      });
-      toast.success("Thanh toán thành công. Cảm ơn bạn đã mua hàng!", {
-        icon: "🎉",
-        duration: 5000,
-      });
-    } catch (error) {
-      console.warn(error);
-      toast.error(
-        "Thanh toán thất bại. Vui lòng kiểm tra nội dung lỗi bên trong Console."
-      );
-    }
-  };
 }
 
 export function useRouteHandle() {

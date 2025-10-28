@@ -18,7 +18,7 @@ import {
   Station,
   UserInfo,
 } from "@/types";
-import { requestWithFallback } from "@/utils/request";
+import { requestWithFallback } from "@/components/shared/utils/request";
 import {
   getLocation,
   getPhoneNumber,
@@ -26,8 +26,8 @@ import {
   getUserInfo,
 } from "zmp-sdk/apis";
 import toast from "react-hot-toast";
-import { calculateDistance } from "./utils/location";
-import { formatDistant } from "./utils/format";
+import { calculateDistance } from "./components/shared/utils/location";
+import { formatDistant } from "./components/shared/utils/format";
 import CONFIG from "./config";
 
 export const userInfoKeyState = atom(0);

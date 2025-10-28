@@ -1,4 +1,4 @@
-# ZaUI Market
+<!-- # ZaUI Market
 
 <p style="display: flex; flex-wrap: wrap; gap: 4px">
   <img alt="vite" src="https://img.shields.io/github/package-json/dependency-version/Zalo-MiniApp/zaui-market/dev/vite" />
@@ -125,4 +125,4 @@ Adjust CSS variables in `src/css/tailwind.scss` as needed to fit your desired br
   --zaui-light-button-secondary-background: #e3b2f1;
   --zaui-light-button-secondary-text: #590872;
 }
-```
+``` -->

@@ -1,0 +1,19 @@
+query CustomerGetMe {
+  customerGetMe {
+    id
+    name
+    phone
+    address
+    addressNote
+    avatar
+    affiliateId
+    bankAccountName
+    bankAccountNumber
+    bankName
+    birthday
+    citizenId
+    code
+    fullAddress
+    hasPassword
+  }
+}
