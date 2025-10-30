@@ -1,0 +1,10 @@
+type OrderPromotion {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  orderId: String
+  promotionId: String
+  receivedOfferProduct: [ReceivedOfferProduct]
+  order: Order!
+  promotion: Promotion!
+}

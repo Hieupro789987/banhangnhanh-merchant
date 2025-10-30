@@ -1,0 +1,120 @@
+# ============ INPUT TYPES ============
+input CreateDraftOrderInput {
+  tableId: ID
+  items: [OrderItemInput]!
+  offerItemIds: [String]
+  buyerName: String
+  buyerPhone: String
+  pickupMethod: String!
+  shopBranchId: ID!
+  pickupTime: DateTime
+  buyerAddress: String
+  buyerProvinceId: String
+  buyerDistrictId: String
+  buyerWardId: String
+  buyerFullAddress: String
+  buyerAddressNote: String
+  receiverId: String
+  receiverName: String
+  receiverPhone: String
+  receiverAddress: String
+  receiverProvince: String
+  receiverDistrict: String
+  receiverWard: String
+  receiverProvinceId: String
+  receiverDistrictId: String
+  receiverWardId: String
+  receiverFullAddress: String
+  receiverAddressNote: String
+  latitude: Float
+  longitude: Float
+  paymentMethod: String!
+  customerShipMethod: EShipMethod
+  customerShipServiceId: String
+  customerShipServiceName: String
+  customerShipRequestIds: [String]
+  shopShipMethod: EShipMethod
+  shopShipServiceId: String
+  shopShipRequestIds: [String]
+  note: String
+  promotionCode: String
+  customerVoucherId: ID
+  useRewardPoint: Boolean
+  offerGroupIndex: Int
+  referralCode: String
+  tableCode: String
+  unixTime: String
+  affiliateCode: String
+  promotionId: String
+  promotionApplies: [PromotionApplyInput]
+  haveIssueInvoice: Boolean
+  successDeepLink: String
+  failDeepLink: String
+  successRedirectUrl: String
+  failRedirectUrl: String
+  platform: EPlatform
+  zaloOrderId: String
+}
+
+input OrderItemInput {
+  productId: ID
+  quantity: Int!
+  basePrice: Mixed
+  valueAddedTaxRateCode: EInvoiceTaxRateCode
+  note: String
+  toppings: [OrderItemToppingInput]
+  productAttributeElements: [OrderItemProductAttributeElementInput]
+  pricePolicyId: ID
+  productImageUrl: String
+  productName: String
+  categoryIds: [ID]
+  unitId: ID
+  supplierId: ID
+}
+
+input OrderItemProductAttributeElementInput {
+  productAttributeElementId: ID!
+}
+
+input OrderItemToppingInput {
+  toppingId: ID
+  toppingName: String
+  optionName: String
+  price: Float
+}
+
+input PromotionApplyInput {
+  id: String
+  productIds: [String]
+}
+
+input QueryGetListInput {
+  limit: Int
+  offset: Int
+  page: Int
+  order: Mixed
+  filter: Mixed
+  search: String
+}
+
+input RegisterMemberInput {
+  agencyCode: String
+  code: String
+  username: String!
+  name: String!
+  avatar: String
+  phone: String!
+  shopName: String!
+  password: String!
+  shopLogo: String
+  address: String
+  provinceId: String
+  districtId: String
+  wardId: String
+  shopType: EShopType
+  identityCardNumber: String
+  gender: String
+  birthday: DateTime
+  initFeatureGroups: [EFeatureGroup]
+  legalEntityType: ELegalEntityType
+}

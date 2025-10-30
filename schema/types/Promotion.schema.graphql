@@ -1,0 +1,66 @@
+type Promotion {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  imageUrl: String
+  name: String
+  memberId: String
+  startDate: DateTime
+  endDate: DateTime
+  type: PromotionType
+  buyConditionType: ConditionType
+  offerConditionType: ConditionType
+  conditionValueOfOrder: Float
+  isActive: Boolean
+  buyProducts: [PromotionProduct]
+  offerProducts: [PromotionProduct]
+  description: String
+  applyType: PricePolicyApplyType
+  haveQuantity: Boolean
+  quantity: Int
+  haveUseLimit: Boolean
+  useLimit: Int
+  useLimitByDate: Boolean
+  receivePromotionThrough: EReceivePromotionThrough
+  member: Member!
+  totalPromotionsCustomerUsed: Mixed
+  totalPromotionsCustomerUsedToday: Mixed
+  remainingUseLimit: Mixed
+  totalPromotionsAbleUsedToday: Mixed
+  skipPolicies: [EPolicy]
+  totalAllEvery: Mixed
+  totalAllToday: Mixed
+  totalCustomerEvery: Mixed
+  totalCustomerToday: Mixed
+  assignmentRemaining: Mixed
+  assignmentRemainingToday: Mixed
+  capShopLifetime: Mixed
+  capShopDaily: Mixed
+  capCustomerLifetime: Mixed
+  capCustomerDaily: Mixed
+  numericRemainingLifetime: Mixed
+  numericRemainingToday: Mixed
+  remainingLifetime: Mixed
+  remainingToday: Mixed
+  isLifetimeUnlimited: Boolean
+  isDailyUnlimited: Boolean
+}
+
+type PromotionPageData {
+  data: [Promotion]
+  total: Int
+  pagination: Pagination
+}
+
+type PromotionProduct {
+  productId: String!
+  quantity: Mixed
+  product: Product
+}
+
+type PromotionReport {
+  summary: Mixed
+  order: Mixed
+  topIssue: Mixed
+  category: Mixed
+}

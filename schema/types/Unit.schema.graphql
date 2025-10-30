@@ -1,0 +1,10 @@
+type Unit {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  code: String
+  applyType: EUnitApplyType
+  name: String
+  memberId: String
+  isActivated: Boolean
+}

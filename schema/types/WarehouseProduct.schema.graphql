@@ -1,0 +1,24 @@
+type WarehouseProduct {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  name: String
+  productCode: String
+  warehouseId: String
+  memberId: String
+  branchId: String
+  productId: String
+  categoryId: String
+  inStockCount: Int
+  processableStockCount: Int
+  inProcessCount: Int
+  deliveryPendingCount: Int
+  importCount: Int
+  exportCount: Int
+  member: Member
+  branch: ShopBranch
+  product: Product
+  outStockCount: Int
+  amountByImportInventoryVoucher: Float
+  amountByExportInventoryVoucher: Float
+}

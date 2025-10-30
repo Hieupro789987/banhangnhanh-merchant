@@ -11,6 +11,7 @@ module.exports = {
         foreground: "var(--foreground)",
         primary: "var(--primary)",
         ["primary-light"]: "var(--primary-light)",
+        ["primary-dark"]: "var(--primary-dark)",
         primaryForeground: "var(--primaryForeground)",
         section: "var(--section)",
         inactive: "var(--inactive)",
@@ -19,7 +20,10 @@ module.exports = {
         subtitle: "var(--subtitle)",
         danger: "var(--danger)",
         skeleton: "var(--skeleton)",
+        success: "var(--success)",
+        warning: "var(--warning)",
       },
+
       spacing: {
         st: "var(--safe-top)",
         sb: "var(--safe-bottom)",

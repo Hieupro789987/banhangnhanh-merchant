@@ -1,0 +1,4 @@
+type S3Url {
+  presignedUrl: String
+  url: String
+}

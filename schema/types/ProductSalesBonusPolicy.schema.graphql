@@ -1,0 +1,78 @@
+type ProductSalesBonusPolicy {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  name: String!
+  isActive: Boolean
+  startDate: DateTime
+  endDate: DateTime
+  settlementDate: DateTime
+  settlementDuration: Int
+  disbursementPeriodId: String
+  rules: [ProductSalesBonusPolicyRule]
+  advancedRules: [ProductSalesBonusPolicyAdvancedRule]
+  member: Member
+  productWithinProductSalesBonusPolicies: [ProductWithinProductSalesBonusPolicy]
+  productSalesBonusPolicyLogs: [ProductSalesBonusPolicyLog]
+  ruleToApplyAdvanced: RuleToApplyAdvanced
+  totalBonus: Mixed
+  shopAffiliateProductSalesBonusPolicy: ShopAffiliateProductSalesBonusPolicy
+}
+
+type ProductSalesBonusPolicyAdvancedRule {
+  branch: Int
+  bonusValue: Float
+}
+
+type ProductSalesBonusPolicyLog {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  memberId: String
+  member: Member
+  shopAffiliateProductSalesBonusPolicyId: String
+  affiliateId: String
+  affiliate: Affiliate
+  affiliateName: String
+  shopAffiliateId: String
+  shopAffiliate: ShopAffiliate
+  shopAffiliateName: String
+  globalCustomerId: String
+  customerId: String
+  customer: Customer
+  customerName: String
+  targetAffiliateId: String
+  targetAffiliate: Affiliate
+  targetAffiliateName: String
+  targetShopAffiliateId: String
+  targetShopAffiliate: ShopAffiliate
+  targetShopAffiliateName: String
+  targetGlobalCustomerId: String
+  targetCustomerId: String
+  targetCustomer: Customer
+  targetCustomerName: String
+  globalBuyerId: String
+  buyerId: String
+  buyer: Customer
+  buyerName: String
+  productId: String
+  product: Product
+  productName: String
+  productAttributeElements: [OrderItemProductAttributeElement]
+  revenue: Int
+  point: Int
+  qty: Int
+  basePrice: Int
+  productSalesBonusPolicyId: String
+  productSalesBonusPolicy: ProductSalesBonusPolicy
+  orderId: String
+  order: Order
+  orderCode: String
+  status: String
+}
+
+type ProductSalesBonusPolicyRule {
+  totalRevenue: Int
+  totalPoint: Int
+  bonusValue: Float
+}

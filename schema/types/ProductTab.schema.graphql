@@ -1,0 +1,13 @@
+type ProductTab {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  tabId: ID
+  productId: ID
+  content: Mixed
+  memberId: ID
+  isActive: Boolean
+  tab: Tab
+  product: Product
+  member: Member
+}

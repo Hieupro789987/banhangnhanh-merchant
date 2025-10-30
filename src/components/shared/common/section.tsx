@@ -4,18 +4,19 @@ export interface SectionProps {
   title: ReactNode;
   className?: string;
   onClick?: () => void;
+  prefix?: ReactNode;
+  suffix?: ReactNode;
 }
 
 export default function Section(props: PropsWithChildren<SectionProps>) {
   return (
-    <div
-      className={"bg-section ".concat(props.className ?? "")}
-      onClick={props.onClick}
-    >
-      <div className="flex items-center justify-between px-2">
-        <div className="text-sm font-medium truncate p-2 pt-3 w-full">
-          {props.title}
+    <div className={`${props.className}`} onClick={props.onClick}>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          {props.prefix && <div>{props.prefix}</div>}
+          <div className="text-sm font-bold w-full">{props.title}</div>
         </div>
+        {props.suffix && <div>{props.suffix}</div>}
       </div>
       {props.children}
     </div>

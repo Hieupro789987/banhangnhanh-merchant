@@ -1,0 +1,31 @@
+query GetAllShopBranch(
+  $q: QueryGetListInput
+  $staffPermissionScope: EStaffPermissionScope
+) {
+  getAllShopBranch(q: $q, staffPermissionScope: $staffPermissionScope) {
+    data {
+      id
+      code
+      name
+      phone
+      email
+      address
+      wardId
+      districtId
+      provinceId
+      province
+      district
+      ward
+      activated
+      location
+      isOpen
+    }
+    pagination {
+      limit
+      offset
+      page
+      total
+    }
+    total
+  }
+}

@@ -1,0 +1,35 @@
+type Supplier {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  isActivated: Boolean
+  phone: String
+  name: String
+  code: String
+  imageUrl: String
+  address: String
+  note: String
+  taxCode: String
+  shopBranchId: ID
+  shopBranch: ShopBranch
+  memberId: ID
+  productCount: Int
+  serviceContractTypeCount: Int
+  paymentConfig: SupplierPaymentConfig
+}
+
+type SupplierPaymentBankConfig {
+  bankName: String
+  ownerName: String
+  bankNumber: String
+  branch: String
+  note: String
+  enabled: Boolean
+  terminalId: String
+  bankBin: String
+}
+
+type SupplierPaymentConfig {
+  mbBankConfig: SupplierPaymentBankConfig
+  bankTransfers: [SupplierPaymentBankConfig]
+}

@@ -1,0 +1,26 @@
+type Category {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  memberId: ID
+  name: String
+  code: String
+  isPrimary: Boolean
+  productIds: [ID]
+  priority: Int
+  hidden: Boolean
+  products: [Product]
+  display: CategoryDisplay
+  imageUrl: String
+}
+
+type CategoryDisplay {
+  WEB: CategoryDisplayPlatform
+  APP: CategoryDisplayPlatform
+  ZALO_MINI_APP: CategoryDisplayPlatform
+}
+
+type CategoryDisplayPlatform {
+  isActivated: Boolean
+  accountTypes: [EAccountTypeDisplayCategory]
+}

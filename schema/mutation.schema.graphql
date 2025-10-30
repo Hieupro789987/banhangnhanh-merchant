@@ -1,0 +1,20 @@
+# ============ MUTATIONS ============
+type Mutation {
+  generateUploadUrl(contentType: String!): S3Url
+  registerMember(data: RegisterMemberInput!): Member
+  loginMemberByPassword(
+    username: String!
+    password: String!
+    deviceId: String
+    deviceToken: String
+  ): MemberLoginData
+  loginStaff(
+    memberCode: String!
+    username: String!
+    password: String!
+    deviceId: String
+    deviceToken: String
+  ): LoginStaffData
+  generateDraftOrder(data: CreateDraftOrderInput!): DraftOrderData
+  generateOrder(data: CreateDraftOrderInput!): Order
+}

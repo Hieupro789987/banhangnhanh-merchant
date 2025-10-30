@@ -1,0 +1,9 @@
+type Tab {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  name: String
+  priority: Int
+  memberId: String
+  member: Member
+}

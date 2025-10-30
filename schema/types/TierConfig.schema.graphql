@@ -1,0 +1,4 @@
+type TierConfig {
+  level: Int
+  name: String!
+}

@@ -1,0 +1,5 @@
+type BaseField {
+  title: String
+  isDisplay: Boolean
+  isRequire: Boolean
+}

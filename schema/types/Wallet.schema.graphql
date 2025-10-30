@@ -1,0 +1,26 @@
+type Wallet {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  walletType: EWalletType
+  totalBalance: Mixed
+  balancePendingWithdrawal: Mixed
+  balanceAvailable: Mixed
+  balanceWithdrawn: Mixed
+  totalDepositBalance: Mixed
+  shopAffiliateId: ID
+  affiliateId: ID
+  customerId: ID
+  globalCustomerId: ID
+  memberId: ID
+}
+
+type WalletBalance {
+  id: Mixed
+  balance: Mixed
+  totalBalance: Mixed
+  balancePendingWithdrawal: Mixed
+  balanceAvailable: Mixed
+  balanceWithdrawn: Mixed
+  totalDepositBalance: Mixed
+}

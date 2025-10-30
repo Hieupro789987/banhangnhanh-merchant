@@ -1,0 +1,17 @@
+type ShopConfigPublic {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  memberId: ID
+  banks: [Bank]
+  codEnabled: Boolean
+  momoEnabled: Boolean
+  vnpayEnabled: Boolean
+  payonEnabled: Boolean
+  zalopayEnabled: Boolean
+  limitOpenOrder: Int
+  limitItem: Int
+  intro: String
+  terms: String
+  isInvoiceHasIssues: Boolean
+}

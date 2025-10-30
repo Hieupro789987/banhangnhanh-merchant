@@ -1,0 +1,8 @@
+type ProductLabel {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  memberId: ID
+  name: String
+  color: String
+}

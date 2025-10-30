@@ -1,0 +1,32 @@
+type ProductCommissionPolicy {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  type: String
+  startDate: DateTime
+  endDate: DateTime
+  settlementDate: DateTime
+  settlementDuration: Int
+  name: String
+  memberId: String
+  isActive: Boolean
+  applyCount: Int
+  disbursementPeriodId: String
+  totalCommission: Mixed
+  rules: [ProductCommissionPolicyRule]
+  productWithinProductCommissionPolicies: [ProductWithinProductCommissionPolicy]
+  shopAffiliateProductCommissionPolicy: ShopAffiliateProductCommissionPolicy
+}
+
+type ProductCommissionPolicyPageData {
+  data: [ProductCommissionPolicy]
+  total: Int
+  pagination: Pagination
+}
+
+type ProductCommissionPolicyRule {
+  tier: Int
+  commissionType: String
+  commissionValue: Float
+  maxCommission: Int
+}

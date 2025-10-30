@@ -1,0 +1,35 @@
+type ShopBranch {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  memberId: ID
+  code: String
+  name: String
+  phone: String
+  email: String
+  address: String
+  wardId: String
+  districtId: String
+  provinceId: String
+  province: String
+  district: String
+  ward: String
+  activated: Boolean
+  location: Mixed
+  coverImage: String
+  isOpen: Boolean
+  shipPreparationTime: String
+  shipDefaultDistance: Int
+  shipDefaultFee: Float
+  shipNextFee: Float
+  shipOneKmFee: Float
+  shipUseOneKmFee: Boolean
+  shipNote: String
+  deletedAt: DateTime
+}
+
+type ShopBranchPageData {
+  data: [ShopBranch]
+  total: Int
+  pagination: Pagination
+}

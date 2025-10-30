@@ -1,5 +1,4 @@
 import Layout from "@/components/layout/layout";
-import HomePage from "@/pages/home";
 
 // import RegisterPage from "@/pages/auth/register";
 import { createBrowserRouter, Navigate } from "react-router-dom";
@@ -11,6 +10,9 @@ import { isTokenExpired } from "@/components/shared/utils/token";
 import { AuthProvider } from "@/components/features/auth/provider/auth-provider";
 import { jwtDecode } from "jwt-decode";
 import { DecodedToken } from "@/types";
+import { OrderProvider } from "@/components/features/order/provider/order-provider";
+
+const HomePage = lazy(() => import("@/pages/home/"));
 
 const LoginPage = lazy(() => import("@/pages/login/"));
 const RegisterPage = lazy(() => import("@/pages/register/"));
@@ -32,6 +34,10 @@ const RegisterFeaturesPage = lazy(
 const RegisterOverviewPage = lazy(
   () => import("@/pages/register/register-overview/")
 );
+
+//order
+
+const CreateOrderPage = lazy(() => import("@/pages/create-order"));
 
 const authLoader = () => {
   const token = nativeStorage.getItem(`token`);
@@ -74,6 +80,18 @@ const router = createBrowserRouter(
             logo: true,
             search: true,
             requiresAuth: true,
+          },
+        },
+        {
+          path: "/create-order",
+          element: (
+            <OrderProvider>
+              <CreateOrderPage />
+            </OrderProvider>
+          ),
+          handle: {
+            title: "Xác nhận đơn hàng",
+            noFooter: true,
           },
         },
         {

@@ -1,0 +1,60 @@
+type OrderItem {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  orderId: ID
+  sellerId: ID
+  buyerId: ID
+  isPrimary: Boolean
+  productId: ID
+  productName: String
+  basePrice: Float
+  priceApply: Float
+  qty: Int
+  sellerBonusPoint: Float
+  buyerBonusPoint: Float
+  amount: Float
+  valueAddedTaxAmount: Float
+  originAmountPerItem: Float
+  originAmount: Float
+  valueAddedTaxRate: Float
+  valueAddedTaxRateCode: EInvoiceTaxRateCode
+  unit: String
+  note: String
+  rewardPoint: Int
+  productAttributeElementAmount: Mixed
+  pricePolicyId: ID
+  ppName: String
+  ppAdjType: String
+  ppAdjUnit: String
+  ppAdjValue: Float
+  ppAdjAmount: Float
+  ppOriginalPrice: Float
+  totalAmountPerItem: Float
+  warehouseProduct: WarehouseProduct
+  product: Product
+  productPricePolicyId: ID
+  productPricePolicyDiscount: Float
+  productAffiliateLevelDiscount: Float
+  productAttributeElements: [OrderItemProductAttributeElement]
+  toppings: [OrderItemTopping]
+}
+
+type OrderItemProductAttributeElement {
+  productAttributeElementId: ID
+  productAttributeElementName: String
+  productAttributeElementPrice: Float
+  productAttributeElementCode: String
+  productAttributeElementUnit: String
+  productAttributeId: ID
+  productAttributeName: String
+  productAttributeCode: String
+  productId: String
+}
+
+type OrderItemTopping {
+  toppingId: ID
+  toppingName: String
+  optionName: String
+  price: Float
+}

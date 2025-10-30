@@ -1,0 +1,5 @@
+type ShopAffiliateStatisticDownlines {
+  tier: Int
+  total: Int
+  shopAffiliate: [ShopAffiliate]
+}

@@ -22,15 +22,16 @@ export default function Header() {
   const showBack = location.key !== "default" && !handle?.noBack;
 
   const avatar = member?.shopLogo || staff?.member?.shopLogo;
-  console.log("member: ", member);
-  const name = member?.name || staff?.name;
+  const name = member?.shopName || staff?.member?.shopName;
   const phone = member?.phone || staff?.phone;
   return (
     <div
-      className="w-full  flex flex-col px-4 bg-primary text-primaryForeground pt-st overflow-hidden bg-no-repeat bg-right-top"
-      style={{
-        backgroundImage: `url(${headerIllus})`,
-      }}
+      className="w-full  flex flex-col bg-gradient-to-r to-[#0F4591] from-[#0095FE]  px-4 text-primaryForeground pt-st overflow-hidden bg-no-repeat bg-right-top"
+      style={
+        {
+          // backgroundImage: `url(${headerIllus})`,
+        }
+      }
     >
       <div className="w-full min-h-14 pr-[90px] flex py-2 space-x-2 items-center">
         {handle?.logo ? (

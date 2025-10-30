@@ -1,0 +1,6 @@
+type Pagination {
+  limit: Mixed
+  offset: Int
+  page: Int
+  total: Int
+}

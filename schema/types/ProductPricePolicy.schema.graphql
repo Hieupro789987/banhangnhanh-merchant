@@ -1,0 +1,21 @@
+type ProductPricePolicy {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  reductionType: String
+  type: String
+  name: String
+  memberId: String
+  isActive: Boolean
+  applyCount: Int
+  rules: [ProductPricePolicyRule]
+}
+
+type ProductPricePolicyRule {
+  minQty: Int
+  reductionValue: Float
+  reductionType: String
+  maxReductionValue: Int
+  applyType: String
+  estimateProductPricePolicyDiscount: Mixed
+}

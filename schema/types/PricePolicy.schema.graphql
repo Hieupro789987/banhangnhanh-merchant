@@ -1,0 +1,36 @@
+type PricePolicy {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  memberId: ID
+  name: String
+  adjustType: String
+  adjustUnit: String
+  adjustValue: Float
+  startDate: DateTime
+    @deprecated(reason: "This field is deprecated, and will be delete soon.")
+  endDate: DateTime
+    @deprecated(reason: "This field is deprecated, and will be delete soon.")
+  daysOfWeekEnabled: Boolean
+    @deprecated(reason: "This field is deprecated, and will be delete soon.")
+  daysOfWeek: [Int]
+    @deprecated(reason: "This field is deprecated, and will be delete soon.")
+  timeframeOfDayEnabled: Boolean
+    @deprecated(reason: "This field is deprecated, and will be delete soon.")
+  timeframeOfDay: [[String]]
+    @deprecated(reason: "This field is deprecated, and will be delete soon.")
+  active: Boolean
+  customerIds: [ID]
+    @deprecated(reason: "This field is deprecated, and will be delete soon.")
+  productIds: [ID]
+    @deprecated(reason: "This field is deprecated, and will be delete soon.")
+  categoryIds: [ID]
+    @deprecated(reason: "This field is deprecated, and will be delete soon.")
+  excludeProductIds: [ID]
+    @deprecated(reason: "This field is deprecated, and will be delete soon.")
+  excludeCategoryIds: [ID]
+    @deprecated(reason: "This field is deprecated, and will be delete soon.")
+  productMinQty: Int
+    @deprecated(reason: "This field is deprecated, and will be delete soon.")
+  type: String
+}

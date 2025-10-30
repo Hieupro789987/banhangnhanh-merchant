@@ -1,0 +1,6 @@
+type VoucherOrder {
+  voucherId: ID
+  qty: Int
+  discount: Float
+  voucher: ShopVoucher
+}

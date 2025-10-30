@@ -1,0 +1,11 @@
+type Bank {
+  bankName: String
+  bankBin: String
+  ownerName: String
+  bankNumber: String
+  branch: String
+  note: String
+  active: Boolean
+  mbTerminalId: String
+  qrCode: String
+}

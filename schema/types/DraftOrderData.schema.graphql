@@ -1,0 +1,5 @@
+type DraftOrderData {
+  order: Order
+  invalid: Boolean
+  invalidReason: String
+}

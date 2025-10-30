@@ -1,0 +1,30 @@
+type ProductAttribute {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  parentProductAttributeId: ID
+  parentProductAttributeElementId: ID
+  productId: ID
+  memberId: ID
+  name: String
+  required: Boolean
+  min: Int
+  max: Int
+  parentProductAttribute: ProductAttribute
+  productAttributeElements: [ProductAttributeElement]
+}
+
+type ProductAttributeElement {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  productId: ID
+  productAttributeId: ID
+  memberId: ID
+  name: String
+  code: String
+  price: Float
+  isDefault: Boolean
+  unit: String
+  childProductAttributes: [ProductAttribute]
+}

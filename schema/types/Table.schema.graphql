@@ -1,0 +1,13 @@
+type Table {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  shopBranchId: ID
+  shopBranch: ShopBranch
+  memberId: ID
+  code: String
+  name: String
+  description: String
+  seatNumber: Int
+  status: ETableStatus
+}

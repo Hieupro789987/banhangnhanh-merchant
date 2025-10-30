@@ -1,0 +1,9 @@
+type ProductSpecs {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  name: String
+  value: String
+  product: Product
+  member: Member
+}

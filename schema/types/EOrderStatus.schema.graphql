@@ -1,0 +1,4 @@
+type EOrderStatus {
+  code: String
+  name: String
+}

@@ -1,0 +1,50 @@
+type AffiliateConfig {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  memberId: String
+  name: String
+  treeType: String
+  terms: String
+  introduction: String
+  fixedConfig: FixedConfig
+  shouldCollectFee: Boolean
+  fee: Float
+  durationType: AffiliateConfigDurationType
+  durationOfDay: Int
+  shouldApplyReferralCommissionPolicy: Boolean
+  allowAutomaticApprovedShopAffiliateRequest: Boolean
+  requiredReferralCodeShopAffiliateRequest: Boolean
+  allowDisplayReferralInformation: Boolean
+  shouldPayByMbBank: Boolean
+  mbBankAccountNumber: String
+  mbBankAccountName: String
+  wordsDisplayed: ShopAffiliateConfigWordsDisplayed
+  policiesAllowed: ShopAffiliateConfigPoliciesAllowed
+  affiliateRequestConfig: AffiliateRequestConfig
+  shopAffiliateWalletConfig: ShopAffiliateConfigShopAffiliateWalletConfig
+  affiliateLevelConfigs: [AffiliateLevelItemConfig]
+}
+
+type AffiliateConfigPageData {
+  data: [AffiliateConfig]
+  total: Int
+  pagination: Pagination
+}
+
+type AffiliateLevelItemConfig {
+  level: Int
+  title: String
+  condition: Mixed
+}
+
+type AffiliateRequestConfig {
+  allowAutomaticApprovedShopAffiliateRequest: Boolean
+  allowDisplayReferralInformation: Boolean
+  email: BaseField
+  citizenId: BaseField
+  address: BaseField
+  referralCode: BaseField
+  bank: BaseField
+  taxCode: BaseField
+}

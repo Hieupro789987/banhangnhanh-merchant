@@ -1,0 +1,16 @@
+.loading-ellipsis {
+  &::after {
+    @apply overflow-hidden;
+    @apply inline-block;
+    @apply w-0;
+    vertical-align: bottom;
+    animation: ellipsis steps(4, end) 1.2s infinite;
+    content: "\2026";
+  }
+
+  @keyframes ellipsis {
+    to {
+      width: 1.25em;
+    }
+  }
+}

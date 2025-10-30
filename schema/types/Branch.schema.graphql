@@ -1,0 +1,6 @@
+type Branch {
+  id: String
+  name: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}

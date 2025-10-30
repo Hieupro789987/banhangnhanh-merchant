@@ -1,0 +1,10 @@
+type ShopCategory {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  name: String
+  image: String
+  desc: String
+  priority: Int
+  shopCount: Int
+}

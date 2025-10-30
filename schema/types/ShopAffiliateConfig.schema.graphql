@@ -1,0 +1,26 @@
+type ShopAffiliateConfigPoliciesAllowed {
+  productCommission: Boolean
+  referralCommission: Boolean
+  productSalesBonusBasic: Boolean
+  productSalesBonusAdvanced: Boolean
+  individualProductSalesBonus: Boolean
+  directSubordinatesProductSalesBonus: Boolean
+  referralShopAffiliateRewardMilestone: Boolean
+  topLeaderBoardBonus: Boolean
+}
+
+type ShopAffiliateConfigShopAffiliateWalletConfig {
+  minimumBalance: Int
+}
+
+type ShopAffiliateConfigWordsDisplayed {
+  shopAffiliate: String
+  productCommission: String
+  referralCommission: String
+  productSalesBonusBasic: String
+  productSalesBonusAdvanced: String
+  individualProductSalesBonus: String
+  directSubordinatesProductSalesBonus: String
+  referralShopAffiliateRewardMilestone: String
+  topLeaderBoardBonus: String
+}

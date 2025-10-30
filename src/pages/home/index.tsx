@@ -1,5 +1,7 @@
+import Home from "@/components/features/home/components";
+
 const HomePage = () => {
-  return <div className="min-h-full space-y-2 py-2"></div>;
+  return <Home />;
 };
 
 export default HomePage;

@@ -8,6 +8,7 @@ export interface SelectOption {
   value: string;
   label: string;
   disabled?: boolean;
+  subtitle?: string;
 }
 
 export interface SelectProps {
@@ -23,6 +24,7 @@ export interface SelectProps {
   multiple?: boolean;
   className?: string;
   closeOnSelect?: boolean;
+  innerRef?: any;
 }
 
 export default function Select(props: SelectProps) {
@@ -39,6 +41,7 @@ export default function Select(props: SelectProps) {
     multiple,
     className = "",
     closeOnSelect,
+    innerRef,
     ...rest
   } = props;
 
@@ -50,7 +53,8 @@ export default function Select(props: SelectProps) {
 
   return (
     <ZaloSelect
-      className={`h-12 placeholder:text-sm text-sm  zaui-select-suffix-hidden ${className}`}
+      ref={innerRef}
+      className={`h-12 placeholder:text-sm text-sm ${className}`}
       label={label}
       helperText={helperText}
       placeholder={placeholder}
@@ -71,7 +75,18 @@ export default function Select(props: SelectProps) {
         <Option
           key={option.value}
           value={option.value}
-          title={option.label}
+          title={
+            option.subtitle
+              ? ((
+                  <div>
+                    <div>{option.label}</div>
+                    <div className="text-subtitle text-sm whitespace-pre-line">
+                      {option.subtitle}
+                    </div>
+                  </div>
+                ) as unknown as string)
+              : option.label
+          }
           disabled={option.disabled}
         />
       ))}

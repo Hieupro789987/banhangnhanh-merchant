@@ -1,0 +1,4 @@
+type RewardPointReport {
+  summary: Mixed
+  topCustomer: Mixed
+}

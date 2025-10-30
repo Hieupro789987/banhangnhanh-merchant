@@ -1,0 +1,24 @@
+type Affiliate {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  name: String
+  phone: String
+  code: String
+  avatar: String
+  globalCustomerId: String
+  totalSales: Int
+  recruitedNumber: Int
+  isActive: Boolean
+  bankName: String
+  bankAccountName: String
+  bankAccountNumber: String
+  status: String
+  withdrawalApprovedCommission: Mixed
+  withdrawalPendingCommission: Mixed
+  withdrawalCanceledCommission: Mixed
+  approvedCommission: Mixed
+  pendingCommission: Mixed
+  canceledCommission: Mixed
+  totalCommission: Mixed
+}

@@ -1,0 +1,10 @@
+# ============ QUERIES ============
+type Query {
+  customerGetMe: Customer
+  memberGetMe: Member
+  staffGetMe: Staff
+  getAllShopBranch(
+    q: QueryGetListInput
+    staffPermissionScope: EStaffPermissionScope
+  ): ShopBranchPageData
+}

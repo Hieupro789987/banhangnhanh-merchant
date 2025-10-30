@@ -1,0 +1,12 @@
+type ShopAffiliateLabel {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  name: String
+  description: String
+  imageUrl: String
+  isActivated: Boolean
+  shopAffiliateCount: Int
+  memberId: ID
+  member: Member
+}

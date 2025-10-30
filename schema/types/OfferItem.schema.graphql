@@ -1,0 +1,6 @@
+type OfferItem {
+  productId: ID
+  qty: Int
+  note: String
+  product: Product
+}

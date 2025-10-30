@@ -1,0 +1,5 @@
+type ReceivedOfferProduct {
+  productId: String
+  product: Product
+  quantity: Int
+}

@@ -1,0 +1,26 @@
+type ProductWithinProductCommissionPolicy {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  productId: String
+  memberId: String
+  isWithinProductCommissionPolicy: Boolean
+  productCommissionPolicyId: String
+  member: Member
+  product: Product
+  productCommissionPolicy: ProductCommissionPolicy
+}
+
+type ProductWithinProductSalesBonusPolicy {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  productId: String
+  memberId: String
+  isWithinProductSalesBonusPolicy: Boolean
+  productSalesBonusPolicyId: String
+  point: Int
+  member: Member
+  product: Product
+  productSalesBonusPolicy: ProductSalesBonusPolicy
+}
