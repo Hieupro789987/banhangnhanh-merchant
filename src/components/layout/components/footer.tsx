@@ -6,7 +6,6 @@ import {
 } from "../../shared/common/vectors";
 import HorizontalDivider from "../../shared/common/horizontal-divider";
 import { useAtomValue } from "jotai";
-import { cartState } from "@/state";
 import TransitionLink from "../../shared/common/transition-link";
 import { useRouteHandle } from "@/hooks";
 import Badge from "../../shared/common/badge";
@@ -17,35 +16,35 @@ const NAV_ITEMS = [
     path: "/",
     icon: HomeIcon,
   },
-  {
-    name: "Danh mục",
-    path: "/categories",
-    icon: CategoryIcon,
-  },
+  // {
+  //   name: "Danh mục",
+  //   path: "/categories",
+  //   icon: CategoryIcon,
+  // },
   {
     name: "Đơn hàng",
     path: "/orders",
     icon: PackageIcon,
   },
-  {
-    name: "Giỏ hàng",
-    path: "/cart",
-    icon: (props) => {
-      const cart = useAtomValue(cartState);
+  // {
+  //   name: "Giỏ hàng",
+  //   path: "/cart",
+  //   icon: (props) => {
+  //     const cart = [];
 
-      return (
-        <Badge value={cart.length}>
-          <CartIcon {...props} />
-        </Badge>
-      );
-    },
-  },
+  //     return (
+  //       <Badge value={cart.length}>
+  //         <CartIcon {...props} />
+  //       </Badge>
+  //     );
+  //   },
+  // },
 ];
 
 export default function Footer() {
   const [handle] = useRouteHandle();
 
-  if (!handle?.noFooter) {
+  if (handle && !handle?.noFooter) {
     return (
       <>
         <HorizontalDivider />

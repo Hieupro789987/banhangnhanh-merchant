@@ -1,66 +1,82 @@
-import { ReactNode, useState } from "react";
-import { Icon, Picker } from "zmp-ui";
+// components/form/Select.tsx
+import { Select as ZaloSelect } from "zmp-ui";
+import { ReactNode, useEffect } from "react";
+import { SelectValueType } from "zmp-ui/select";
 
-export interface SelectProps<T> {
-  renderTitle: (selectedItem?: T) => ReactNode;
-  renderItemKey: (item: T) => string;
-  renderItemLabel?: (item: T) => string;
-  items: T[];
-  value?: T;
-  onChange: (selectedItem?: T) => void;
+const { OtpGroup, Option } = ZaloSelect;
+export interface SelectOption {
+  value: string;
+  label: string;
+  disabled?: boolean;
 }
 
-export default function Select<T>(props: SelectProps<T>) {
-  const [localValue, setLocalValue] = useState(
-    props.value ? props.renderItemKey(props.value) : ""
-  );
+export interface SelectProps {
+  label?: string;
+  helperText?: string;
+  placeholder?: string;
+  error?: string;
+  disabled?: boolean;
+  value?: string | string[];
+  defaultValue?: string | string[];
+  onChange?: (value: SelectValueType | SelectValueType[]) => void;
+  options?: SelectOption[];
+  multiple?: boolean;
+  className?: string;
+  closeOnSelect?: boolean;
+}
 
-  const flush = () => {
-    const selectedItem = props.items.find(
-      (item) => props.renderItemKey(item) === localValue
-    );
-    props.onChange(selectedItem);
-  };
+export default function Select(props: SelectProps) {
+  const {
+    label,
+    helperText,
+    placeholder = "Chọn...",
+    error,
+    disabled,
+    value,
+    defaultValue,
+    onChange,
+    options = [],
+    multiple,
+    className = "",
+    closeOnSelect,
+    ...rest
+  } = props;
+
+  useEffect(() => {
+    if (defaultValue) {
+      onChange?.(defaultValue);
+    }
+  }, [defaultValue]);
 
   return (
-    <div className="flex-none h-8 border border-black/15 rounded-full relative [&>.zaui-picker-input]:absolute [&>.zaui-picker-input]:inset-0 [&>.zaui-picker-input]:opacity-0">
-      <Picker
-        mask
-        maskClosable
-        title={props.renderTitle() as unknown as string}
-        data={[
-          {
-            name: "localValue",
-            options: props.items.map((item) => ({
-              displayName:
-                props.renderItemLabel?.(item) ?? props.renderItemKey(item),
-              key: props.renderItemKey(item),
-              value: props.renderItemKey(item),
-            })),
-          },
-        ]}
-        value={{
-          localValue,
-        }}
-        onChange={({ localValue }) => {
-          setLocalValue(localValue.key ?? "");
-        }}
-        action={{
-          text: "OK",
-          close: true,
-          onClick: () => {
-            flush();
-          },
-        }}
-      />
-      <div className="h-full relative flex justify-center items-center px-3 space-x-1.5 pointer-events-none">
-        <div className="text-xs">
-          {props.renderTitle
-            ? props.renderTitle(props.value)
-            : String(props.value)}
-        </div>
-        <Icon icon="zi-chevron-down" />
-      </div>
-    </div>
+    <ZaloSelect
+      className={`h-12 placeholder:text-sm text-sm  zaui-select-suffix-hidden ${className}`}
+      label={label}
+      helperText={helperText}
+      placeholder={placeholder}
+      errorText={error}
+      disabled={disabled}
+      value={value}
+      defaultValue={defaultValue}
+      onChange={(selected) => {
+        if (selected) {
+          onChange?.(selected);
+        }
+      }}
+      closeOnSelect={closeOnSelect}
+      multiple={multiple}
+      {...rest}
+    >
+      {options.map((option) => (
+        <Option
+          key={option.value}
+          value={option.value}
+          title={option.label}
+          disabled={option.disabled}
+        />
+      ))}
+    </ZaloSelect>
   );
 }
+
+export { Option as Option };

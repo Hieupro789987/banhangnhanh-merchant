@@ -1,0 +1,84 @@
+mutation RegisterMember($data: RegisterMemberInput!) {
+  registerMember(data: $data) {
+    id
+    username
+    name
+    shopName
+    address
+    shopLogo
+    code
+    shopType
+    legalEntityType
+    district
+    provinceId
+    wardId
+    phone
+  }
+}
+
+mutation LoginMemberByPassword(
+  $username: String!
+  $password: String!
+  $deviceToken: String
+  $deviceId: String
+) {
+  loginMemberByPassword(
+    username: $username
+    password: $password
+    deviceToken: $deviceToken
+    deviceId: $deviceId
+  ) {
+    token
+    member {
+      id
+      username
+      name
+      shopName
+      address
+      shopLogo
+      code
+      shopType
+      legalEntityType
+      district
+      provinceId
+      wardId
+      phone
+    }
+  }
+}
+
+mutation LoginStaff(
+  $memberCode: String!
+  $username: String!
+  $password: String!
+  $deviceId: String
+  $deviceToken: String
+) {
+  loginStaff(
+    memberCode: $memberCode
+    username: $username
+    password: $password
+    deviceId: $deviceId
+    deviceToken: $deviceToken
+  ) {
+    staff {
+      id
+      name
+      phone
+      memberId
+      scopes
+      username
+      code
+      branchId
+      avatar
+      branch {
+        code
+        name
+      }
+      member {
+        shopName
+      }
+    }
+    token
+  }
+}

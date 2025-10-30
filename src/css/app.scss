@@ -51,3 +51,17 @@
   height: 100%;
   overflow-y: auto;
 }
+
+.zaui-select-suffix-hidden {
+  .zaui-input-group-addon {
+    display: none;
+  }
+}
+.zaui-select-header {
+  align-items: center;
+  border-bottom: 3px solid #f4f0f0;
+}
+.zaui-select-title {
+  // text-align: left;
+  padding: 16px 12px;
+}

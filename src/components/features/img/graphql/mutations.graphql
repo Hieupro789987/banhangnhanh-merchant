@@ -1,0 +1,6 @@
+mutation GenerateUploadUrl($contentType: String!) {
+  generateUploadUrl(contentType: $contentType) {
+    presignedUrl
+    url
+  }
+}

@@ -1,19 +1,69 @@
-query CustomerGetMe {
-  customerGetMe {
-    id
-    name
+query MemberGetMe {
+  memberGetMe {
+    username
+    type
+    taxCode
+    shopName
+    shopType
+    shopLogo
     phone
-    address
-    addressNote
+    name
+    id
+    gender
     avatar
-    affiliateId
-    bankAccountName
-    bankAccountNumber
-    bankName
-    birthday
-    citizenId
+    address
+    activated
     code
-    fullAddress
-    hasPassword
+  }
+}
+
+query StaffGetMe {
+  staffGetMe {
+    username
+    scopes
+    shopBranchIds
+    staffPermissions {
+      staffId
+      id
+      createdAt
+      memberId
+      permissionType
+      permissions {
+        scopeGroup
+        permissionScopes
+      }
+      shopBranchId
+      shopBranch {
+        phone
+        id
+        code
+        name
+      }
+    }
+    phone
+    name
+    memberId
+    member {
+      type
+      username
+      taxCode
+      shopName
+      shopLogo
+      shopCover
+      phone
+      name
+      id
+      code
+      address
+    }
+    id
+    code
+    branchId
+    avatar
+    branch {
+      id
+      code
+      name
+    }
   }
 }

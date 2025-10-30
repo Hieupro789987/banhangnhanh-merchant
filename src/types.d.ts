@@ -1,77 +1,41 @@
-export interface UserInfo {
-  id: string;
-  name: string;
-  avatar: string;
-  phone: string;
-  email: string;
-  address: string;
+export interface Option<T = any> {
+  value: T;
+  label: string;
+  image?: string;
+  className?: string;
+  disabled?: boolean;
+  color?:
+    | "primary"
+    | "accent"
+    | "info"
+    | "success"
+    | "danger"
+    | "warning"
+    | "slate"
+    | "orange"
+    | "teal"
+    | "cyan"
+    | "purple"
+    | "pink"
+    | (string & {});
+
+  cols?: Cols;
+  data?: any;
+  desc?: string;
 }
 
-export interface Product {
-  id: number;
-  name: string;
-  price: number;
-  originalPrice?: number;
-  image: string;
-  category: Category;
-  detail?: string;
-  sizes?: Size[];
-  colors?: Color[];
+export interface ReactProps {
+  className?: string;
+  key?: any;
+  children?: any;
+  style?: React.CSSProperties;
 }
 
-export interface Category {
-  id: number;
-  name: string;
-  image: string;
-}
-
-export interface CartItem {
-  product: Product;
-  quantity: number;
-}
-
-export type Cart = CartItem[];
-
-export interface Location {
-  lat: number;
-  lng: number;
-}
-
-export interface ShippingAddress {
-  alias: string;
-  address: string;
-  name: string;
-  phone: string;
-}
-
-export interface Station {
-  id: number;
-  name: string;
-  image: string;
-  address: string;
-  location: Location;
-}
-
-export type Delivery =
-  | ({
-      type: "shipping";
-    } & ShippingAddress)
-  | {
-      type: "pickup";
-      stationId: number;
-    };
-
-export type OrderStatus = "pending" | "shipping" | "completed";
-export type PaymentStatus = "pending" | "success" | "failed";
-
-export interface Order {
-  id: number;
-  status: OrderStatus;
-  paymentStatus: PaymentStatus;
-  createdAt: Date;
-  receivedAt: Date;
-  items: CartItem[];
-  delivery: Delivery;
-  total: number;
-  note: string;
+export interface DecodedToken {
+  role: "MEMBER" | "STAFF";
+  _id: string;
+  username: string;
+  createdAt: string;
+  iat: number;
+  exp: number;
 }

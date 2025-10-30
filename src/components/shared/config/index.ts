@@ -4,26 +4,57 @@ class AppConfig {
     return backendHost;
   }
 
-  get shopCode(): string {
-    const shopCode = this.getDefaultConfig().shopCode;
-    return shopCode;
+  get agencyCode(): string {
+    const agencyCode = this.getDefaultConfig().agencyCode;
+    return agencyCode;
+  }
+
+  get graphqlUrl(): string {
+    const backendHost = this.backendHost;
+    return `${backendHost}/graphql`;
+  }
+
+  get wsGraphqlUrl(): string {
+    const backendHost = this.backendHost;
+
+    const wsProtocol = backendHost.startsWith("https") ? "wss" : "ws";
+    const wsUrl = backendHost.replace(/^https?:\/\//, `${wsProtocol}://`);
+    return `${wsUrl}/graphql`;
+  }
+
+  get graphqlUrlFromEnv(): string {
+    return this.getDefaultConfig().graphqlUrl || this.graphqlUrl;
+  }
+
+  get wsGraphqlUrlFromEnv(): string {
+    return this.getDefaultConfig().wsGraphqlUrl || this.wsGraphqlUrl;
   }
 
   private getDefaultConfig() {
     const mode = import.meta.env.MODE;
+    const agencyCode: string = import.meta.env.VITE_AGENCY_CODE;
+    const backendHost: string = import.meta.env.VITE_BACKEND_HOST;
+    const backendHost_dev: string = import.meta.env.VITE_BACKEND_HOST_DEV;
+
+    const graphqlUrl: string = import.meta.env.VITE_GRAPHQL_URL;
+    const wsGraphqlUrl: string = import.meta.env.VITE_WS_GRAPHQL_URL;
 
     const configs = {
       development: {
-        backendHost: "https://api-dev.banhangnhanh.shop",
-        shopCode: "sieucuahang",
+        backendHost: backendHost_dev,
+        agencyCode,
+        graphqlUrl,
+        wsGraphqlUrl,
       },
       production: {
-        backendHost: "https://api.banhangnhanh.shop",
-        shopCode: "panda123",
+        backendHost,
+        agencyCode,
+        graphqlUrl,
+        wsGraphqlUrl,
       },
     };
 
-    const result = configs[mode as keyof typeof configs] || configs.development;
+    const result = configs[mode] || configs.development;
     return result;
   }
 }

@@ -1,0 +1,410 @@
+scalar DateTime
+scalar Mixed
+
+type Query {
+  customerGetMe: Customer
+  # Thêm ít nhất một query để schema valid
+  memberGetMe: Member
+}
+
+type Customer {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  memberId: ID
+  code: String
+  name: String
+  phone: String
+  addressNote: String
+  email: String
+  idCard: String
+  avatar: String
+  gender: String
+  birthday: DateTime
+  address: String
+  fullAddress: String
+  psid: Mixed
+  followerId: String
+  zaloFollower: Mixed
+  globalCustomerId: String
+  latitude: Float
+  longitude: Float
+  isAgency: Boolean
+  isAgencyAt: DateTime
+  isDistributor: Boolean
+  isDistributorAt: DateTime
+  totalOrderAmountCompleted: Mixed
+  affiliateId: String
+  shopAffiliateId: String
+  citizenId: String
+  hasPassword: Boolean
+  bankName: String
+  bankAccountName: String
+  bankAccountNumber: String
+  currentDebt: Mixed
+  totalDebtPaid: Mixed
+  order: Int
+}
+
+type Branch {
+  id: String
+  name: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type Member {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  domain: String
+  code: String
+  username: String
+  name: String
+  avatar: String
+  phone: String
+  phoneVerified: Boolean
+  shopName: String
+  shopLogo: String
+  shopCover: String
+  address: String
+  provinceId: String
+  districtId: String
+  wardId: String
+  province: String
+  district: String
+  ward: String
+  identityCardNumber: String
+  gender: String
+  birthday: DateTime
+  activedAt: DateTime
+  activated: Boolean
+  type: String
+  branchId: ID
+  allowSale: Boolean
+  shopType: EShopType
+  parentMemberId: ID
+  customerId: ID
+  taxCode: String
+  branch: Branch
+  parents: [Member]
+  customer: Customer
+  shopUrl: String
+  ordersCount: Int
+  toMemberOrdersCount: Int
+  legalEntityType: ELegalEntityType
+}
+
+enum ELegalEntityType {
+  INDIVIDUAL
+  HOUSEHOLD_BUSINESS
+  COMPANY
+  COOPERATIVE
+}
+
+enum EShopType {
+  ENTERPRISE
+  FOOD_AND_BEVERAGE_DEPARTMENT
+  DISTRIBUTOR
+  FAST_MOVING_CONSUMER_GOODS
+  ELECTRONICS
+  SERVICE
+  OTHER
+}
+
+enum EFeatureGroup {
+  ORDER
+  TABLE
+  INVOICE
+  WAREHOUSES
+  DELIVERY
+  SHOP_AFFILIATES
+  POS
+  PAYMENT
+  STAFFS
+  SUPPLIERS
+  SHOP_VOCHERS
+  CUSTOMERS
+  SERVICE_CONTRACTS
+  REPORTS
+  MINIGAME
+}
+
+input RegisterMemberInput {
+  agencyCode: String
+  code: String
+  username: String!
+  name: String!
+  avatar: String
+  phone: String!
+  shopName: String!
+  password: String!
+  shopLogo: String
+  address: String
+  provinceId: String
+  districtId: String
+  wardId: String
+  shopType: EShopType
+  identityCardNumber: String
+  gender: String
+  birthday: DateTime
+  initFeatureGroups: [EFeatureGroup]
+  legalEntityType: ELegalEntityType
+}
+
+type ShopBranch {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  memberId: ID
+  code: String
+  name: String
+  phone: String
+  email: String
+  address: String
+  wardId: String
+
+  """
+  Mã Quận/huyện
+  """
+  districtId: String
+
+  """
+  Mã Tỉnh/thành
+  """
+  provinceId: String
+
+  """
+  Tỉnh/thành
+  """
+  province: String
+
+  """
+  Quận/huyện
+  """
+  district: String
+
+  """
+  Phường/xã
+  """
+  ward: String
+
+  """
+  hiệu lực hay không hiệu lực
+  """
+  activated: Boolean
+
+  """
+  Toạ độ
+  """
+  location: Mixed
+
+  """
+  Hình ảnh cover
+  """
+  coverImage: String
+
+  """
+  Mở cửa
+  """
+  isOpen: Boolean
+
+  """
+  Thời gian chuẩn bị
+  """
+  shipPreparationTime: String
+
+  """
+  Khoản cách giao hàng mặc định
+  """
+  shipDefaultDistance: Int
+
+  """
+  Phí giao hàng mặc định
+  """
+  shipDefaultFee: Float
+
+  """
+  Phí ship cộng thêm mỗi km
+  """
+  shipNextFee: Float
+
+  """
+  Phí ship dưới 1 km
+  """
+  shipOneKmFee: Float
+
+  """
+  Bật phí ship dưới 1 km
+  """
+  shipUseOneKmFee: Boolean
+  shipNote: String
+  deletedAt: DateTime
+}
+enum EPermissionType {
+  SHOP
+  SHOP_BRANCH
+}
+
+enum EStaffPermissionScope {
+  VIEW_CUSTOMER
+  VIEW_HISTORY_ORDERS
+  VIEW_HISTORY_SHOP_VOUCHERS
+  VIEW_HISTORY_REWARD_POINTS
+  UPDATE_PASSWORD
+  VIEW_PRODUCT
+  CREATE_PRODUCT
+  UPDATE_PRODUCT
+  DELETE_PRODUCT
+  MANAGE_PRODUCT_TAB
+  MANAGE_PRODUCT_CATEGORY
+  VIEW_WAREHOUSE_INVENTORY
+  VIEW_WAREHOUSE_INVENTORY_VOUCHER
+  CREATE_IMPORT_WAREHOUSE_INVENTORY_VOUCHER
+  CREATE_EXPORT_WAREHOUSE_INVENTORY_VOUCHER
+  VIEW_WAREHOUSE_PRODUCT_AUDIT
+  CREATE_WAREHOUSE_PRODUCT_AUDIT
+  VIEW_ORDER
+  CREATE_ORDER
+  UPDATE_ORDER
+  PAYMENT_CONFIRM_ORDER
+  CONFIRM_ORDER
+  SORT_ORDER
+  PACKAGED_ORDER
+  TRANSFER_DELIVERY_ORDER
+  TRANSFER_DELIVERY_ORDER_SUCCESS
+  TRANSFER_DELIVERY_ORDER_FAILED
+  APPROVED_ORDER
+  CANCEL_ORDER
+  VIEW_SHOP_AFFILIATE
+  VIEW_SHOP_AFFILIATE_REQUEST
+  CREATE_SHOP_AFFILIATE_REQUEST
+  PAYMENT_CONFIRM_SHOP_AFFILIATE_REQUEST
+  HANDLE_SHOP_AFFILIATE_REQUEST
+  DELETE_SHOP_AFFILIATE_REQUEST
+  VIEW_DISBURSEMENT_PERIOD
+  CREATE_DISBURSEMENT_PERIOD
+  UPDATE_DISBURSEMENT_PERIOD
+  DELETE_DISBURSEMENT_PERIOD
+  HANDLE_DISBURSEMENT_REQUEST
+  COMPLETE_DISBURSEMENT_PERIOD
+  VIEW_POLICY_STATISTIC
+  VIEW_INCOME_AND_EXPENDITURE_CASH_FLOW
+  VIEW_SERVICE_CONTRACT
+  CREATE_SERVICE_CONTRACT
+  PAYMENT_CONFIRM_SERVICE_CONTRACT
+  VIEW_SERVICE_CONTRACT_TYPE_SESSION_LOG
+  CREATE_SERVICE_CONTRACT_TYPE_SESSION_LOG
+  HANDLE_SERVICE_CONTRACT
+  VIEW_PRE_BOOING
+  CREATE_PRE_BOOING
+  HANDLE_PRE_BOOKING
+}
+
+enum EStaffPermissionScopeGroup {
+  CUSTOMER_MANAGEMENT
+  PRODUCT_MANAGEMENT
+  WAREHOUSE_MANAGEMENT
+  ORDER_MANAGEMENT
+  SHOP_AFFILIATE_MANAGEMENT
+  DISBURSEMENT_PERIODS_MANAGEMENT
+  STATISTICS_AND_REPORTING_MANAGEMENT
+  SERVICE_CONTRACT_MANAGEMENT
+  SERVICE_CONTRACT_TYPE_SESSION_LOG_MANAGEMENT
+  PRE_BOOKING_MANAGEMENT
+}
+
+type StaffPermissionGroup {
+  """
+  Nhóm phạm vi phân quyền
+  """
+  scopeGroup: EStaffPermissionScopeGroup!
+
+  """
+  Phạm vi phân quyền
+  """
+  permissionScopes: [EStaffPermissionScope]
+}
+
+type StaffPermission {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+
+  """
+  Mã chủ shop
+  """
+  memberId: ID
+  member: Member
+  shopBranchId: ID
+  shopBranch: ShopBranch
+  staffId: ID
+  staff: Staff
+  permissionType: EPermissionType
+  permissions: [StaffPermissionGroup]
+}
+
+type Staff {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  memberId: ID
+  username: String
+  name: String
+  code: String
+  phone: String
+  avatar: String
+  branchId: ID
+  branch: ShopBranch
+  shopBranchIds: [ID]
+  shopBranches: [ShopBranch]
+  scopes: [String]
+  staffPermissions: [StaffPermission]
+  member: Member
+}
+
+type MemberLoginData {
+  member: Member
+  token: String
+}
+
+type LoginStaffData {
+  staff: Staff
+  token: String
+}
+
+type S3Url {
+  presignedUrl: String
+  url: String
+}
+type Query {
+  memberGetMe: Member
+  staffGetMe: Staff
+}
+
+type Mutation {
+  generateUploadUrl(contentType: String!): S3Url
+  registerMember(data: RegisterMemberInput!): Member
+  loginMemberByPassword(
+    username: String!
+    password: String!
+    deviceId: String
+    deviceToken: String
+  ): MemberLoginData
+  loginStaff(
+    memberCode: String!
+    username: String!
+    password: String!
+    deviceId: String
+    deviceToken: String
+  ): LoginStaffData
+}
+
+input QueryGetListInput {
+  limit: Int
+  offset: Int
+  page: Int
+  order: Mixed
+  filter: Mixed
+  search: String
+}

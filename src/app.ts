@@ -31,7 +31,7 @@ import appConfig from "../app-config.json";
 
 import { nativeStorage } from "zmp-sdk/apis";
 import { appZaloMiniAppConfig } from "@/components/shared/config";
-// import { isTokenExpired } from "@/utils/parser";
+import { isTokenExpired } from "@/components/shared/utils/token";
 
 if (!window.APP_CONFIG) {
   window.APP_CONFIG = appConfig;
@@ -39,6 +39,14 @@ if (!window.APP_CONFIG) {
 
 const getAuthHeaders = () => {
   return new Promise((resolve) => {
+    const token = nativeStorage.getItem(`token`);
+    console.log("token: ", token);
+    if (token && !isTokenExpired(token)) {
+      resolve({ "x-token": token, "x-platform": "ZALO_MINI_APP" });
+    } else if (token) {
+      nativeStorage.removeItem(`token`);
+    }
+
     resolve({ "x-platform": "ZALO_MINI_APP" });
   });
 };
