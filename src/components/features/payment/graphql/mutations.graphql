@@ -1,0 +1,3 @@
+mutation GenerateMacZaloMiniApp($applicationId: String, $dataMac: Mixed) {
+  generateMacZaloMiniApp(applicationId: $applicationId, dataMac: $dataMac)
+}

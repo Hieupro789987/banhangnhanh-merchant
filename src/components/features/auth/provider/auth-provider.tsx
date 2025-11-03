@@ -102,6 +102,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const logout = async () => {
+    console.log("logout");
     nativeStorage.removeItem("token");
     clearAuth();
     navigate("/login", { replace: true });
@@ -126,7 +127,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     isCheckStaffPermissionScope,
   };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>
+      {value.loading ? <></> : children}
+    </AuthContext.Provider>
+  );
 };
 
 export const useAuth = () => {

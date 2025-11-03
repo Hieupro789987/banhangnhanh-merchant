@@ -22,5 +22,5 @@ type Mutation {
     data: GetAllDeliveryServiceAvailableInput!
   ): [DeliveryService]
 
-  generateMacZaloMiniApp(dataMac: Mixed): String
+  generateMacZaloMiniApp(applicationId: String, dataMac: Mixed): String
 }

@@ -29,7 +29,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
       title={
         (
           <div className="border-b border-neutral-200 pb-4 px-4 flex justify-between items-center">
-            <h3 className="text-lg font-bold text-ellipsis">{title}</h3>
+            <h3 className="text-lg font-bold line-clamp-1">{title}</h3>
             <i onClick={onClose}>
               <Icon icon="zi-close" size={24} />
             </i>

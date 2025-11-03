@@ -37,7 +37,8 @@ export function AddressGroup({
   const {
     watch,
     setValue,
-    formState: { errors },
+    resetField,
+    formState: { errors, defaultValues },
   } = useFormContext();
 
   const provinceId = watch(`provinceId`);
@@ -84,8 +85,8 @@ export function AddressGroup({
         }
       });
 
-      setValue(`districtId`, "");
-      setValue(`wardId`, "");
+      // setValue(`districtId`, "");
+      // setValue(`wardId`, "");
       setValue(name, "");
     } else {
       setDistrictOptions([]);
@@ -105,7 +106,7 @@ export function AddressGroup({
         }
       });
 
-      setValue(`wardId`, "");
+      // setValue(`wardId`, "");
       setValue(name, "");
     } else {
       setWardOptions([]);
@@ -137,7 +138,9 @@ export function AddressGroup({
       }
     } else if (isShowAddressSelect && isShowAddressMap) {
       if (addressDetail && provinceName && districtName && wardName) {
-        setValue(name, addressDetail);
+        setValue(name, addressDetail || defaultValue);
+      } else {
+        setValue(name, defaultValue);
       }
       // else {
       //   setValue(name, "");
@@ -172,8 +175,6 @@ export function AddressGroup({
       districtId?: string;
       wardId?: string;
     }) => {
-      console.log("locationData: ", locationData);
-
       setValue(`addressDetail`, locationData.address);
       setValue(`lat`, locationData.lat);
       setValue(`lng`, locationData.lng);
@@ -217,13 +218,19 @@ export function AddressGroup({
       isShowAddressMap,
     ]
   );
+  const [selectKey, setSelectKey] = useState(0);
 
   const handleProvinceChange = (value: string) => {
     setValue(`provinceId`, value);
+    setValue(`districtId`, undefined);
+    setValue(`wardId`, undefined);
+    setSelectKey((prev) => prev + 1);
   };
 
   const handleDistrictChange = (value: string) => {
     setValue(`districtId`, value);
+    setValue(`wardId`, undefined);
+    setSelectKey((prev) => prev + 1);
   };
 
   const handleWardChange = (value: string) => {
@@ -231,7 +238,6 @@ export function AddressGroup({
   };
 
   const shouldRequireWard = required && wardOptions.length > 0;
-  console.log("addressDetail: ", addressDetail);
 
   return (
     <div>
@@ -245,9 +251,9 @@ export function AddressGroup({
             >
               <Select
                 {...selectConfig}
+                key={`province-${selectKey}`}
                 placeholder="Chọn tỉnh/thành"
                 options={provinceOptions}
-                value={provinceId}
                 onChange={handleProvinceChange}
                 disabled={loadingProvinces}
               />
@@ -262,9 +268,9 @@ export function AddressGroup({
             >
               <Select
                 {...selectConfig}
+                key={`district-${selectKey}`}
                 placeholder="Chọn quận/huyện"
                 options={districtOptions}
-                value={districtId}
                 onChange={handleDistrictChange}
                 disabled={!provinceId || loadingDistricts}
               />
@@ -279,9 +285,9 @@ export function AddressGroup({
             >
               <Select
                 {...selectConfig}
+                key={`ward-${selectKey}`}
                 placeholder="Chọn phường/xã"
                 options={wardOptions}
-                value={wardId}
                 onChange={handleWardChange}
                 disabled={!districtId || loadingWards}
               />

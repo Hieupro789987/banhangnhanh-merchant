@@ -557,6 +557,7 @@ query GetAllOrder2($q: QueryGetListInput) {
       createdAt
       amount
       itemCount
+      paymentStatus
       shopBranch {
         name
       }

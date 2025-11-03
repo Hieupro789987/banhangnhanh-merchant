@@ -21,12 +21,12 @@ const STATUS_COLOR_MAP: {
   };
 } = {
   warning: {
-    text: "text-yellow-600",
-    bg: "bg-yellow-500",
+    text: "text-yellow-400",
+    bg: "bg-yellow-300",
     lightBg: "bg-yellow-100",
   },
   info: {
-    text: "text-blue-700",
+    text: "text-blue-500",
     bg: "bg-blue-500",
     lightBg: "bg-blue-100",
   },
@@ -36,7 +36,7 @@ const STATUS_COLOR_MAP: {
     lightBg: "bg-purple-100",
   },
   success: {
-    text: "text-green-700",
+    text: "text-green-600",
     bg: "bg-green-500",
     lightBg: "bg-green-100",
   },

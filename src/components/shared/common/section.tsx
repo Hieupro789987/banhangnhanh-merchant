@@ -6,6 +6,7 @@ export interface SectionProps {
   onClick?: () => void;
   prefix?: ReactNode;
   suffix?: ReactNode;
+  titleClassName?: string;
 }
 
 export default function Section(props: PropsWithChildren<SectionProps>) {
@@ -14,7 +15,9 @@ export default function Section(props: PropsWithChildren<SectionProps>) {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           {props.prefix && <div>{props.prefix}</div>}
-          <div className="text-sm font-bold w-full">{props.title}</div>
+          <div className={`text-sm font-bold w-full ${props.titleClassName}`}>
+            {props.title}
+          </div>
         </div>
         {props.suffix && <div>{props.suffix}</div>}
       </div>

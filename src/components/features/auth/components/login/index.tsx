@@ -59,7 +59,10 @@ const Login = () => {
       }
 
       navigate("/", { replace: true });
-      toast.success("Đăng nhập thành công");
+      toast.success("Đăng nhập thành công", {
+        duration: 1500,
+        position: "top-center",
+      });
     } catch (error: any) {
       console.log("Có lỗi sảy ra: ", error?.message);
       toast.error(error?.message);

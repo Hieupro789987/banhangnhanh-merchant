@@ -37,7 +37,7 @@ const ReceiverInformation: FC<ReceiverInformationProps> = () => {
       : receiverPhone
     : "";
 
-  const receiverFullAddress = state?.orderDataInput?.receiverFullAddress;
+  const receiverFullAddress = state?.draftOrder?.order?.receiverFullAddress;
 
   return (
     <div className="bg-white p-4 shadow-card rounded-lg">
@@ -182,7 +182,7 @@ const ReceiverInformationForm = ({ onClose }) => {
         receiverPhone:
           state?.draftOrder?.order?.receiverPhone ||
           state?.draftOrder?.order?.buyerPhone,
-        receiverFullAddress: state?.orderDataInput?.receiverFullAddress,
+        receiverFullAddress: state?.draftOrder?.order?.receiverFullAddress,
         provinceId: state?.draftOrder?.order?.receiverProvinceId,
         districtId: state?.draftOrder?.order?.receiverDistrictId,
         wardId: state?.draftOrder?.order?.receiverWardId,

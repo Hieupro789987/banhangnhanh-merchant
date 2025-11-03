@@ -3,7 +3,7 @@ import {
   DraftOrderData,
   EShipMethod,
   GenerateDraftOrderDocument,
-  generateMacZaloMiniAppDocument,
+  GenerateMacZaloMiniAppDocument,
   GenerateOrderDocument,
   Order,
   OrderItem,
@@ -254,7 +254,7 @@ export const OrderProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const [generateDraftOrderMutation] = useMutation(GenerateDraftOrderDocument);
   const [generateOrderMutation] = useMutation(GenerateOrderDocument);
-  const [getMac] = useMutation(generateMacZaloMiniAppDocument);
+  const [getMac] = useMutation(GenerateMacZaloMiniAppDocument);
 
   const updateProduct = useCallback((orderItem: OrderItem) => {
     dispatch({ type: "UPDATE_PRODUCT", payload: orderItem });
@@ -365,49 +365,50 @@ export const OrderProvider: React.FC<{ children: React.ReactNode }> = ({
         return;
       }
 
-      generateFinalOrder();
+      // generateFinalOrder();
 
-      // const items = state?.draftOrder?.order?.items?.map((item) => ({
-      //   id: item?.id || "",
-      //   amount: item?.basePrice || 0,
-      // }));
+      const items = state?.draftOrder?.order?.items?.map((item) => ({
+        id: item?.id || "",
+        amount: item?.basePrice || 0,
+      }));
 
-      // const data = {
-      //   desc: `Thanh toán`,
-      //   item: items || [],
-      //   amount: state.finalOrder?.amount || 0,
-      //   method: JSON.stringify({
-      //     id: "COD",
-      //     // id: state.finalOrder?.paymentMethod,
-      //     // isCustom: !ALL_PAYMENT_METHODS.includes(
-      //     //   state.finalOrder?.paymentMethod as PAYMENT_METHOD_ZALO
-      //     // ),
-      //   }),
-      // };
+      const data = {
+        desc: `Thanh toán`,
+        item: items || [],
+        amount: state.draftOrder?.order?.amount || 0,
+        method: JSON.stringify({
+          id: "COD",
+          // id: state.finalOrder?.paymentMethod,
+          // isCustom: !ALL_PAYMENT_METHODS.includes(
+          //   state.finalOrder?.paymentMethod as PAYMENT_METHOD_ZALO
+          // ),
+        }),
+      };
 
-      // const mac = (await getMac({
-      //   variables: {
-      //     dataMac: data as any,
-      //   },
-      // })) as any;
+      const mac = (await getMac({
+        variables: {
+          dataMac: data as any,
+          applicationId: window.APP_ID,
+        },
+      })) as any;
 
-      // const macKey = mac?.data?.generateMacZaloMiniApp;
+      const macKey = mac?.data?.generateMacZaloMiniApp;
 
-      // if (macKey) {
-      //   createOrder({
-      //     ...data,
-      //     mac: macKey || "",
-      //     success: (data) => {
-      //       const { orderId } = data;
-      //       if (orderId) {
-      //         generateFinalOrder();
-      //       }
-      //     },
-      //     fail: (err) => {
-      //       console.log("Payment error: ", err);
-      //     },
-      //   });
-      // }
+      if (macKey) {
+        createOrder({
+          ...data,
+          mac: macKey || "",
+          success: (data) => {
+            const { orderId } = data;
+            if (orderId) {
+              generateFinalOrder();
+            }
+          },
+          fail: (err) => {
+            console.log("Payment error: ", err);
+          },
+        });
+      }
     } catch (e) {
       console.log("Payment error: ", e);
     }

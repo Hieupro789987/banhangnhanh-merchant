@@ -37,7 +37,9 @@ export default function Layout() {
         containerStyle={{
           top: "calc(50% - 24px)",
         }}
-        toastOptions={{ duration: 1500 }}
+        toastOptions={{
+          duration: 1500,
+        }}
       />
 
       <ScrollRestoration />

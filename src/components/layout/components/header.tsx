@@ -41,10 +41,18 @@ export default function Header() {
               alt={avatar || "avatar"}
               className="flex-none w-9 h-9 !rounded-full"
             />
-            <div>
-              <h1 className="text-sm font-bold">{name}</h1>
-              <span className="text-xs text-white">{phone}</span>
-            </div>
+            <TransitionLink to="/profile" className="flex items-center">
+              <div>
+                <h1 className="text-sm font-bold line-clamp-1 w-50%">{name}</h1>
+                <span className="text-xs text-white">{phone}</span>
+              </div>
+              <div
+                className="py-1  cursor-pointer"
+                onClick={() => navigate(-1)}
+              >
+                <Icon icon="zi-chevron-right" />
+              </div>
+            </TransitionLink>
           </>
         ) : (
           <>

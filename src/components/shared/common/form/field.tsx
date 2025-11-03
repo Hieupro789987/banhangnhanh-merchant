@@ -1,5 +1,3 @@
-// components/form/Field.tsx
-
 import { Children, cloneElement, ReactElement } from "react";
 import { Controller, useFormContext, useFormState } from "react-hook-form";
 
@@ -44,9 +42,9 @@ export function Field({
   className = "",
   validation,
 }: FieldProps) {
-  const { control } = useFormContext();
+  const { control, watch } = useFormContext();
   const { errors, isSubmitting } = useFormState();
-
+  const value = name ? watch(name) : undefined;
   const error = errors[name]?.message as string;
   const child = Children.toArray(children)[0] as ReactElement;
 
@@ -156,7 +154,8 @@ export function Field({
         render={({ field }) =>
           cloneElement(child, {
             ...child.props,
-            value: field.value ?? "",
+            value: value ?? "",
+            name: name,
             onChange: (...args: any[]) => {
               field.onChange(...args);
               child.props.onChange?.(...args);

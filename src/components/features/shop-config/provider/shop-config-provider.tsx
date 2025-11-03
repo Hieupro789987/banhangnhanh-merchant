@@ -2,12 +2,14 @@ import { ShopConfig } from "@/generated/graphql";
 import { useQuery } from "@apollo/client/react";
 import React, { createContext, useContext, ReactNode, useEffect } from "react";
 import { GetShopConfigDocument } from "@/generated/graphql";
-import { useLoaderData } from "react-router";
+import { useAuth } from "@/components/features/auth/provider/auth-provider";
+import { nativeStorage } from "zmp-sdk";
 
 interface ShopConfigContextType {
   shopConfig: ShopConfig;
   loading: boolean;
   error?: any;
+  refetch: () => void;
 }
 
 const ShopConfigContext = createContext<ShopConfigContextType | undefined>(
@@ -19,12 +21,22 @@ interface ShopConfigProviderProps {
 }
 
 export function ShopConfigProvider({ children }: ShopConfigProviderProps) {
-  const loaderData = useLoaderData() as {
-    isAuthenticated?: boolean;
-  };
+  const { member, staff, isAuthenticated } = useAuth();
+  const [token, setToken] = React.useState<string | null>(null);
 
-  const { data, loading, error } = useQuery(GetShopConfigDocument, {
-    skip: !loaderData?.isAuthenticated,
+  useEffect(() => {
+    const currentToken = nativeStorage.getItem("token");
+    setToken(currentToken);
+  }, [token]);
+
+  const { data, loading, error, refetch } = useQuery(GetShopConfigDocument, {
+    skip: !token,
+    fetchPolicy: "cache-and-network",
+    context: {
+      headers: {
+        authorization: token ? `Bearer ${token}` : "",
+      },
+    },
   });
 
   const [shopConfig, setShopConfig] = React.useState<ShopConfig>({});
@@ -35,15 +47,22 @@ export function ShopConfigProvider({ children }: ShopConfigProviderProps) {
     }
   }, [data]);
 
+  useEffect(() => {
+    if (token) {
+      refetch();
+    }
+  }, [token, refetch]);
+
   const value = {
     shopConfig,
     loading,
     error,
+    refetch,
   };
 
   return (
     <ShopConfigContext.Provider value={value}>
-      {loading ? <></> : children}
+      {children}
     </ShopConfigContext.Provider>
   );
 }

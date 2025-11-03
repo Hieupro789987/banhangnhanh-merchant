@@ -7,7 +7,7 @@ import {
   useSimpleOrders,
 } from "@/components/shared/hooks/use-order";
 import { StatusLabel } from "@/components/shared/common/status-label";
-import { ORDER_STATUS } from "@/components/shared/types/order";
+import { ORDER_STATUS, PAYMENT_STATUS } from "@/components/shared/types/order";
 import { RiTodoFill } from "react-icons/ri";
 import { formatDate } from "date-fns";
 import { parseNumber } from "@/components/shared/utils/format";
@@ -67,13 +67,20 @@ const Orders = () => {
                   <div className="font-bold text-right text-[13px]">
                     {parseNumber(order?.amount)}đ
                   </div>
-                  <div className="text-subtitle text-[13px] text-right">
+                  {/* <div className="text-subtitle text-[13px] text-right">
                     {order?.itemCount} sản phẩm
-                  </div>
+                  </div> */}
+                  <StatusLabel
+                    type="text"
+                    className="px-0 text-xs"
+                    options={PAYMENT_STATUS}
+                    value={order?.paymentStatus}
+                  />
                 </div>
               </div>
+              <hr className="my-3 border-neutral-100" />
               <div className="mt-3 flex justify-between gap-x-1">
-                <div className="text-ellipsis-1 max-w-[70%] text-[13px]">
+                <div className="line-clamp-1 max-w-[70%] text-[13px]">
                   {order?.shopBranch?.name}
                 </div>
                 <StatusLabel

@@ -32,6 +32,8 @@ const CreateOrderPage = lazy(() => import("@/pages/create-order"));
 const AddProductPage = lazy(() => import("@/pages/product/"));
 const OrdersPage = lazy(() => import("@/pages/orders/"));
 
+const ProfilePage = lazy(() => import("@/pages/profile/"));
+
 const authLoader = () => {
   const token = nativeStorage.getItem(`token`);
   if (!token || isTokenExpired(token)) {
@@ -72,6 +74,15 @@ const router = createBrowserRouter(
             logo: true,
             search: true,
             requiresAuth: true,
+          },
+        },
+        {
+          path: "/profile",
+          element: <ProfilePage />,
+          handle: {
+            title: "Thông tin tài khoản",
+            requiresAuth: true,
+            noFooter: true,
           },
         },
         {
