@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import deliveryICon from "@/static/delivery.png";
 import storeICon from "@/static/store.png";
 import cashierMachineIcon from "@/static/cashier-machine.png";
@@ -8,6 +8,7 @@ import { Img } from "@/components/shared/common/img";
 import { useOrder } from "@/components/features/order/provider/order-provider";
 import { useAuth } from "@/components/features/auth/provider/auth-provider";
 import { EPickupMethod, EShopType } from "@/generated/graphql";
+import { useShopConfig } from "@/components/features/shop-config/provider/shop-config-provider";
 
 const PICK_METHOD_TAB_OPTIONS: Option[] = [
   { label: "Giao hàng", value: EPickupMethod.DELIVERY, image: deliveryICon },
@@ -20,6 +21,8 @@ const PICK_METHOD_TAB_OPTIONS: Option[] = [
 ];
 const PickupMethod = () => {
   const { member, staff } = useAuth();
+  const { shopConfig } = useShopConfig();
+  const isDelivery = shopConfig.orderConfig?.deliveryConfig?.isActivated;
   const isShowStorePurchase = [
     member?.shopType,
     staff?.member?.shopType,
@@ -28,10 +31,18 @@ const PickupMethod = () => {
   const { updateOrderInput, state } = useOrder();
 
   const pickupMethods = useMemo(() => {
-    return PICK_METHOD_TAB_OPTIONS.filter((x) =>
-      isShowStorePurchase ? x : x.value !== EPickupMethod.IN_STORE_PURCHASE
-    );
-  }, [isShowStorePurchase]);
+    return PICK_METHOD_TAB_OPTIONS.filter((x) => {
+      if (x.value === EPickupMethod.DELIVERY && !isDelivery) {
+        return false;
+      }
+
+      if (x.value === EPickupMethod.IN_STORE_PURCHASE && !isShowStorePurchase) {
+        return false;
+      }
+
+      return true;
+    });
+  }, [isDelivery, isShowStorePurchase]);
 
   const gridClass = useMemo(() => {
     const count = pickupMethods.length;
@@ -41,8 +52,14 @@ const PickupMethod = () => {
     return "grid-cols-1";
   }, [pickupMethods.length]);
 
+  useEffect(() => {
+    if (pickupMethods?.length === 1) {
+      updateOrderInput({ pickupMethod: pickupMethods[0].value });
+    }
+  }, [pickupMethods]);
+
   return (
-    <div className="rounded-lg bg-white">
+    <div className="rounded-lg bg-white shadow-card">
       <Section title="Hình thức nhận hàng" className="p-4">
         <div className={`grid ${gridClass} gap-x-2 gap-y-3 mt-3`}>
           {pickupMethods.map((tab) => (

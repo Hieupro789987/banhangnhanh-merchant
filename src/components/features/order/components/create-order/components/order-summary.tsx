@@ -3,11 +3,14 @@ import { parseNumber } from "@/components/shared/utils/format";
 import React from "react";
 import { Button } from "zmp-ui";
 import { FiAlertTriangle } from "react-icons/fi";
+import { useVirtualKeyboardVisible } from "@/components/shared/hooks/useVirtualKeyboardVisible";
 const OrderSummary = () => {
+  const keyboardVisible = useVirtualKeyboardVisible();
   const { state } = useOrder();
 
+  if (keyboardVisible) return null;
   return (
-    <div className="sticky bottom-0 left-0 p-4 bg-white shadow-lg">
+    <div className="sticky bottom-0 left-0 p-4 bg-white shadow-lg pb-sb">
       {state.error && (
         <div className="bg-red-600 rounded-lg px-3 py-1 mb-2 text-white text-xs flex items-center">
           <FiAlertTriangle className="text-xs mr-1.5" />

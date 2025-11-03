@@ -9,18 +9,23 @@ const ShopBranchSection = () => {
   const selectRef = useRef<any>(null);
   const { availableBranches, selectedBranch, setSelectedBranch } =
     useSelectedShopBranch();
-  const { updateOrderInput } = useOrder();
+  const { updateOrderInput, state } = useOrder();
+  const shopBranchState = state?.draftOrder?.order?.shopBranch;
 
   const handleSelectChange = (val: string) => {
     const shopBranch = availableBranches?.find((x) => x.id === val);
-    shopBranch && setSelectedBranch?.(shopBranch);
+
+    if (shopBranch && shopBranch?.id) {
+      setSelectedBranch?.(shopBranch);
+      updateOrderInput({ shopBranchId: shopBranch?.id });
+    }
   };
 
   useEffect(() => {
-    if (selectedBranch?.id) {
+    if (!state?.draftOrder?.order?.shopBranchId && selectedBranch?.id) {
       updateOrderInput({ shopBranchId: selectedBranch?.id });
     }
-  }, [selectedBranch]);
+  }, [selectedBranch?.id, state?.draftOrder?.order?.shopBranchId]);
 
   const getAddress = (branch: typeof selectedBranch) =>
     [branch?.address, branch?.ward, branch?.district, branch?.province]
@@ -29,23 +34,33 @@ const ShopBranchSection = () => {
 
   const selectOptions = availableBranches.map((shopBranch) => ({
     value: shopBranch.id,
-    label: shopBranch.name,
-    subtitle: getAddress(shopBranch),
+    label: (
+      <div>
+        <div>{shopBranch.name}</div>
+        <div className="text-subtitle text-sm whitespace-pre-line">
+          {getAddress(shopBranch)}
+        </div>
+      </div>
+    ) as unknown as string,
   }));
 
   return (
-    <div className="rounded-lg bg-white p-4">
+    <div className="rounded-lg bg-white p-4 shadow-card">
       <Section
         prefix={<RiStore3Fill className="text-primary" size={24} />}
-        title={selectedBranch?.name ? selectedBranch?.name : "Chọn chi nhánh"}
+        title={shopBranchState?.name ? shopBranchState?.name : "Chọn chi nhánh"}
         onClick={() => selectRef.current?.input?.click()}
-        suffix={<RiEditFill size={20} className="text-[#60728F]" />}
+        suffix={
+          <i className="text-primary">
+            <RiEditFill size={20} />
+          </i>
+        }
       >
         <Select
           innerRef={selectRef}
           label="Các cửa hàng ở gần bạn"
           className="!border-transparent hidden !mt-0 !text-sm text-[#4E5461] zaui-select-suffix-hidden !p-0"
-          value={selectedBranch?.id || ""}
+          value={shopBranchState?.id || ""}
           onChange={handleSelectChange}
           placeholder="Chọn chi nhánh"
           options={selectOptions as any}
@@ -53,9 +68,9 @@ const ShopBranchSection = () => {
         />
 
         <div className="mt-3 text-sm text-title min-h-10">
-          <p className={selectedBranch ? "" : "text-subtitle"}>
-            {selectedBranch
-              ? getAddress(selectedBranch)
+          <p className={shopBranchState ? "" : "text-subtitle"}>
+            {shopBranchState
+              ? getAddress(shopBranchState)
               : "Vui lòng chọn chi nhánh của cửa hàng"}
           </p>
         </div>

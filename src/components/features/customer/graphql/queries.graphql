@@ -1,0 +1,17 @@
+query GetAllCustomer($q: QueryGetListInput) {
+  getAllCustomer(q: $q) {
+    pagination {
+      total
+      page
+      offset
+      limit
+    }
+    data {
+      id
+      name
+      phone
+      avatar
+    }
+    total
+  }
+}

@@ -1,0 +1,61 @@
+query GetProvince {
+  getProvince {
+    id
+    name
+    addressType
+    rootId
+    provider
+    parentAddressId
+    parentRootId
+    parentProvider
+    province
+    provinceId
+    district
+    districtId
+    ward
+    wardId
+    createdAt
+    updatedAt
+  }
+}
+query GetDistrict($provinceId: String!) {
+  getDistrict(provinceId: $provinceId) {
+    id
+    name
+    addressType
+    rootId
+    provider
+    parentAddressId
+    parentRootId
+    parentProvider
+    province
+    provinceId
+    district
+    districtId
+    ward
+    wardId
+    createdAt
+    updatedAt
+  }
+}
+
+query GetWard($districtId: String!) {
+  getWard(districtId: $districtId) {
+    id
+    name
+    addressType
+    rootId
+    provider
+    parentAddressId
+    parentRootId
+    parentProvider
+    province
+    provinceId
+    district
+    districtId
+    ward
+    wardId
+    createdAt
+    updatedAt
+  }
+}

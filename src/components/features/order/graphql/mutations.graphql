@@ -99,6 +99,12 @@ mutation GenerateDraftOrder($data: CreateDraftOrderInput!) {
         valueAddedTaxRate
         valueAddedTaxRateCode
         unit
+        productName
+        productId
+        product {
+          id
+          image
+        }
         productAttributeElements {
           productAttributeName
           productAttributeId
@@ -129,6 +135,10 @@ mutation GenerateDraftOrder($data: CreateDraftOrderInput!) {
         id
         code
         name
+        address
+        ward
+        district
+        province
       }
 
       voucherId
@@ -158,6 +168,10 @@ mutation GenerateDraftOrder($data: CreateDraftOrderInput!) {
         shopBranch {
           name
           code
+          address
+          ward
+          district
+          province
         }
       }
       referralCode
@@ -263,6 +277,7 @@ mutation GenerateOrder($data: CreateDraftOrderInput!) {
       valueAddedTaxRate
       valueAddedTaxRateCode
       unit
+
       productAttributeElements {
         productAttributeName
         productAttributeId
@@ -293,6 +308,10 @@ mutation GenerateOrder($data: CreateDraftOrderInput!) {
       id
       code
       name
+      address
+      ward
+      district
+      province
     }
 
     voucherId
@@ -322,6 +341,10 @@ mutation GenerateOrder($data: CreateDraftOrderInput!) {
       shopBranch {
         name
         code
+        address
+        ward
+        district
+        province
       }
     }
     referralCode

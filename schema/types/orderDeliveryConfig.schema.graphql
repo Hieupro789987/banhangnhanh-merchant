@@ -1,0 +1,23 @@
+type OrderDeliveryConfig {
+  internalDriverConfig: InternalDriverConfig
+  isActivated: Boolean
+  deliveryAddressConfig: DeliveryAddressConfig
+}
+
+type InternalDriverConfig {
+  isCalculateShipFeeByShopSetting: Boolean
+
+  """
+  Tính phí ship theo ahamove ?
+  """
+  isCalculateShipFeeByAhamove: Boolean
+  isCalculateShipFeeByGrabExpress: Boolean
+  isAllowCustomerChoose: Boolean
+}
+type DeliveryAddressConfig {
+  administrativeAddressConfig: DeliveryAddressDetailConfig
+  coordinateBasedAddressConfig: DeliveryAddressDetailConfig
+}
+type DeliveryAddressDetailConfig {
+  isActivated: Boolean
+}

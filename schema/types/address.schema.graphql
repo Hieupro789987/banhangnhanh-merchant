@@ -1,0 +1,18 @@
+type Address {
+  id: String
+  name: String
+  addressType: EAddressType
+  rootId: String
+  provider: Mixed
+  parentAddressId: ID
+  parentRootId: String
+  parentProvider: Mixed
+  province: String
+  provinceId: String
+  district: String
+  districtId: String
+  ward: String
+  wardId: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}

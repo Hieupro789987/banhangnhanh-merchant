@@ -24,6 +24,7 @@ import "zmp-ui/zaui.css";
 // Tailwind stylesheet
 import "@/css/tailwind.scss";
 // Your stylesheet
+import "@/css/custom.scss";
 import "@/css/loading.scss";
 import "@/css/app.scss";
 

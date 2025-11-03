@@ -1,0 +1,99 @@
+type DeliveryService {
+  """
+  Phương thức vận chuyển
+  """
+  shipMethod: EShipMethod
+
+  """
+  Tên đơn vị vận chuyển
+  """
+  deliveryName: String
+  deliveryLogo: String
+
+  """
+  Mã dịch vụ
+  """
+  serviceId: String
+
+  """
+  Tên dịch vụ
+  """
+  serviceName: String
+
+  """
+  Hình icon
+  """
+  iconUrl: String
+
+  """
+  Thời gian ước tính
+  """
+  duration: String
+
+  """
+  Phí ship cuối dùng
+  """
+  shipFee: Float
+
+  """
+  Phụ phí vận chuyển
+  """
+  shipSurcharge: Float
+
+  """
+  Giảm giá
+  """
+  discount: Float
+  requests: [DeliveryServiceRequest]
+
+  """
+  Phí giao hàng cơ bản
+  """
+  baseShipFee: Float
+
+  """
+  Khoảng cách
+  """
+  distance: Float
+
+  """
+  Loại giao hàng
+  """
+  deliveryType: String
+  priceDetails: Mixed
+  requested: Mixed
+  estimatedTime: Mixed
+}
+
+type DeliveryServiceRequest {
+  name: String
+  requestId: String
+  iconUrl: String
+  type: String
+  description: String
+  price: Float
+  distanceFee: Float
+  tierList: [DeliveryServiceRequestTier]
+  enable: Boolean
+  groupId: String
+  transferCod: Boolean
+}
+
+type DeliveryServiceRequestTier {
+  code: String
+  name: String
+  price: Float
+  priceDescription: String
+  description: String
+  imageUrl: String
+}
+input GetAllDeliveryServiceAvailableInput {
+  items: [OrderItemInput]!
+  shopBranchId: ID!
+  latitude: Float
+  longitude: Float
+  provinceId: String
+  districtId: String
+  wardId: String
+  ahamovePromotionCode: String
+}

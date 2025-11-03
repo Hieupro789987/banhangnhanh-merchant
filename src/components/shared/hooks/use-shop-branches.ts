@@ -17,8 +17,7 @@ export const useShopBranches = ({
   autoFetch = true,
   queryParams = {},
 }: UseShopBranchesProps = {}) => {
-  const { staff, member } = useAuth();
-  console.log("staff: ", staff);
+  const { isCheckStaffPermissionScope } = useAuth();
 
   const variables = {
     q: {
@@ -27,7 +26,9 @@ export const useShopBranches = ({
       ...queryParams,
     },
 
-    staffPermissionScope: staff?.id
+    staffPermissionScope: isCheckStaffPermissionScope(
+      EStaffPermissionScope.CREATE_ORDER
+    )
       ? EStaffPermissionScope.CREATE_ORDER
       : undefined,
   };

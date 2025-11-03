@@ -30,6 +30,14 @@ class AppConfig {
     return this.getDefaultConfig().wsGraphqlUrl || this.wsGraphqlUrl;
   }
 
+  get googleMapApiKey(): string {
+    return this.getDefaultConfig().googleMapApiKey;
+  }
+
+  get mapId(): string {
+    return this.getDefaultConfig().mapId;
+  }
+
   private getDefaultConfig() {
     const mode = import.meta.env.MODE;
     const agencyCode: string = import.meta.env.VITE_AGENCY_CODE;
@@ -39,18 +47,25 @@ class AppConfig {
     const graphqlUrl: string = import.meta.env.VITE_GRAPHQL_URL;
     const wsGraphqlUrl: string = import.meta.env.VITE_WS_GRAPHQL_URL;
 
+    const googleMapApiKey: string = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+    const mapId: string = import.meta.env.VITE_MAP_ID;
+
     const configs = {
       development: {
         backendHost: backendHost_dev,
         agencyCode,
         graphqlUrl,
         wsGraphqlUrl,
+        googleMapApiKey,
+        mapId,
       },
       production: {
         backendHost,
         agencyCode,
         graphqlUrl,
         wsGraphqlUrl,
+        googleMapApiKey,
+        mapId,
       },
     };
 

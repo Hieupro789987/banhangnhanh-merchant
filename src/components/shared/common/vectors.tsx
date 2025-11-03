@@ -417,8 +417,8 @@ export function SearchIconLarge() {
           y2="65.3125"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#52B361" />
-          <stop offset="1" stopColor="#52B361" stopOpacity="0" />
+          <stop stopColor="var(--primary)" /> {/* Đổi thành primary */}
+          <stop offset="1" stopColor="var(--primary)" stopOpacity="0" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_2208_10921"
@@ -428,8 +428,9 @@ export function SearchIconLarge() {
           y2="19.2859"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#52B361" />
-          <stop offset="1" stopColor="#9AE1A5" />
+          <stop stopColor="var(--primary)" /> {/* Đổi thành primary */}
+          <stop offset="1" stopColor="var(--primary-light)" />{" "}
+          {/* Đổi thành primary-light */}
         </linearGradient>
         <linearGradient
           id="paint2_linear_2208_10921"

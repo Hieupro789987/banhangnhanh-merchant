@@ -1,46 +1,102 @@
-export interface CheckboxProps {
+import React from "react";
+
+interface CheckboxProps {
   checked: boolean;
   onChange: (checked: boolean) => void;
+  disabled?: boolean;
+  size?: "small" | "medium" | "large";
+  className?: string;
+  label?: string;
 }
 
-export default function Checkbox(props: CheckboxProps) {
+const Checkbox: React.FC<CheckboxProps> = ({
+  checked,
+  onChange,
+  disabled = false,
+  size = "medium",
+  className = "",
+  label,
+}) => {
+  const handleClick = () => {
+    if (!disabled) {
+      onChange(!checked);
+    }
+  };
+
+  const getSizeClasses = () => {
+    switch (size) {
+      case "small":
+        return "w-4 h-4";
+      case "large":
+        return "w-6 h-6";
+      default:
+        return "w-5 h-5";
+    }
+  };
+
+  const getIconSize = () => {
+    switch (size) {
+      case "small":
+        return "14";
+      case "large":
+        return "18";
+      default:
+        return "16";
+    }
+  };
+
   return (
-    <svg
-      width="25"
-      height="24"
-      viewBox="0 0 25 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="flex-none cursor-pointer text-primary"
-      onClick={() => props.onChange(!props.checked)}
+    <div
+      className={`flex items-center gap-3 cursor-pointer ${
+        disabled ? "opacity-50 cursor-not-allowed" : ""
+      } ${className}`}
+      onClick={handleClick}
     >
-      {props.checked ? (
-        <>
-          <path
-            d="M0.5 8C0.5 3.58172 4.08172 0 8.5 0H16.5C20.9183 0 24.5 3.58172 24.5 8V16C24.5 20.4183 20.9183 24 16.5 24H8.5C4.08172 24 0.5 20.4183 0.5 16V8Z"
-            fill="currentcolor"
-          />
-          <path
-            d="M7 12.5L10.5 16L18 8.5"
-            stroke="white"
-            strokeWidth="3"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </>
-      ) : (
-        <>
-          <path
-            d="M1.5 8C1.5 4.13401 4.63401 1 8.5 1H16.5C20.366 1 23.5 4.13401 23.5 8V16C23.5 19.866 20.366 23 16.5 23H8.5C4.63401 23 1.5 19.866 1.5 16V8Z"
-            fill="white"
-          />
-          <path
-            d="M1.5 8C1.5 4.13401 4.63401 1 8.5 1H16.5C20.366 1 23.5 4.13401 23.5 8V16C23.5 19.866 20.366 23 16.5 23H8.5C4.63401 23 1.5 19.866 1.5 16V8Z"
-            stroke="#C2C7CB"
-            strokeWidth="2"
-          />
-        </>
+      {/* Checkbox Box */}
+      <div
+        className={`
+          ${getSizeClasses()}
+          border-2 rounded flex items-center justify-center
+          transition-all duration-200 ease-in-out
+          ${
+            checked
+              ? "bg-primary border-primary"
+              : "bg-white border-[#D0D5DD] hover:border-primary"
+          }
+          ${disabled ? "bg-neutral-100 border-neutral-300" : "cursor-pointer"}
+        `}
+      >
+        {/* Check Icon */}
+        {checked && (
+          <svg
+            width={getIconSize()}
+            height={getIconSize()}
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <path
+              d="M20 6L9 17L4 12"
+              stroke="white"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        )}
+      </div>
+
+      {/* Label */}
+      {label && (
+        <span
+          className={`text-[#4E5461] select-none ${
+            disabled ? "text-neutral-400" : ""
+          }`}
+        >
+          {label}
+        </span>
       )}
-    </svg>
+    </div>
   );
-}
+};
+
+export default Checkbox;

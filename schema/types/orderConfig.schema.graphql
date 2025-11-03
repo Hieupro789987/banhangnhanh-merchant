@@ -1,0 +1,37 @@
+type OrderConfig {
+  """
+  Cho phép huỷ
+  """
+  allowCancel: Boolean
+
+  """
+  Bật giao hàng ahamove
+  """
+  ahamoveEnabled: Boolean
+
+  """
+  Giao hàng nhanh bằng ahamove
+  """
+  ahamoveFastForward: Boolean
+
+  """
+  Thời gian chuyển nhanh qua ahamove
+  """
+  ahamoveFastForwardDelay: Int
+
+  """
+  Tính phí ship theo ahamove
+  """
+  ahamoveShipFee: Boolean
+
+  """
+  Bỏ qua giỏ hàng
+  """
+  skipCart: Boolean
+
+  """
+  Cho phép giao hàng
+  """
+  allowDelivery: Boolean
+  deliveryConfig: OrderDeliveryConfig
+}

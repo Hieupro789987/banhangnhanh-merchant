@@ -28,7 +28,7 @@ interface BaseInputProps {
   onChange?: (value: string) => void;
   onBlur?: () => void;
 
-  debounce?: number; // Optional - nếu có thì mới debounce
+  debounce?: number;
 
   name?: string;
   className?: string;
@@ -47,17 +47,14 @@ const Input = forwardRef<InputRef, InputProps>((props, ref) => {
     ...rest
   } = props;
 
-  // Local state để cập nhật UI ngay lập tức
   const [localValue, setLocalValue] = useState(value ?? defaultValue ?? "");
 
-  // Sync với controlled value từ props
   useEffect(() => {
     if (value !== undefined) {
       setLocalValue(value);
     }
   }, [value]);
 
-  // Tạo debounced onChange chỉ khi có debounceTime
   const debouncedOnChange = useMemo(() => {
     if (onChange && debounceTime !== undefined && debounceTime > 0) {
       return debounce(onChange, debounceTime);
@@ -69,14 +66,11 @@ const Input = forwardRef<InputRef, InputProps>((props, ref) => {
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const newValue = e.target.value;
 
-      // Cập nhật UI ngay lập tức
       setLocalValue(newValue);
 
-      // Gọi onChange (có hoặc không debounce)
       if (debouncedOnChange) {
         debouncedOnChange(newValue);
       } else if (onChange) {
-        // Không có debounce - gọi onChange ngay lập tức
         onChange(newValue);
       }
     },
@@ -169,7 +163,6 @@ const InputSearch = forwardRef<SearchRef, InputSearchProps>((props, ref) => {
     }
   }, [value]);
 
-  // Debounce cho onChange
   const debouncedOnChange = useMemo(() => {
     if (onChange && debounceTime !== undefined && debounceTime > 0) {
       return debounce(onChange, debounceTime);
@@ -177,7 +170,6 @@ const InputSearch = forwardRef<SearchRef, InputSearchProps>((props, ref) => {
     return onChange;
   }, [onChange, debounceTime]);
 
-  // Debounce cho onSearch
   const debouncedOnSearch = useMemo(() => {
     if (onSearch && debounceTime !== undefined && debounceTime > 0) {
       return debounce(onSearch, debounceTime);

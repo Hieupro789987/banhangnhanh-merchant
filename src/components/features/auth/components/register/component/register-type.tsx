@@ -44,7 +44,6 @@ const ShopTypeField = () => {
   const { setValue, register, watch } = useFormContext();
   const name = "shopType";
   const shopType = watch(name);
-  console.log("shopType: ", shopType);
 
   useEffect(() => {
     register(name);

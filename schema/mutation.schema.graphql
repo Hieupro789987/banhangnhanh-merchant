@@ -17,4 +17,8 @@ type Mutation {
   ): LoginStaffData
   generateDraftOrder(data: CreateDraftOrderInput!): DraftOrderData
   generateOrder(data: CreateDraftOrderInput!): Order
+
+  getAllDeliveryServiceAvailable(
+    data: GetAllDeliveryServiceAvailableInput!
+  ): [DeliveryService]
 }

@@ -36,3 +36,9 @@ type Customer {
   totalDebtPaid: Mixed
   order: Int
 }
+
+type CustomerPageData {
+  data: [Customer]
+  total: Int
+  pagination: Pagination
+}

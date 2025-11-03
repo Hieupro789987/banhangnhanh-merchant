@@ -1,0 +1,214 @@
+type ShopConfig {
+  id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+
+  """
+  Mã chủ shop
+  """
+  memberId: ID
+
+  """
+  Mã CRM VNPost
+  """
+  vnpostCode: String
+
+  """
+  Điện thoại VNPost
+  """
+  vnpostPhone: String
+
+  """
+  Tên người dùng VNPost
+  """
+  vnpostName: String
+
+  """
+  Thời gian chuẩn bị
+  """
+  shipPreparationTime: String
+
+  """
+  Khoản cách giao hàng mặc định
+  """
+  shipDefaultDistance: Int
+
+  """
+  Phí giao hàng mặc định
+  """
+  shipDefaultFee: Float
+
+  """
+  Phí ship cộng thêm mỗi km
+  """
+  shipNextFee: Float
+
+  """
+  Phí ship dưới 1 km
+  """
+  shipOneKmFee: Float
+
+  """
+  Bật phí ship dưới 1 km
+  """
+  shipUseOneKmFee: Boolean
+
+  """
+  Ghi chú cho shipper
+  """
+  shipNote: String
+
+  """
+  Đánh giá sao
+  """
+  rating: Float
+
+  """
+  Số lượng đánh giá
+  """
+  ratingQty: Int
+
+  """
+  Số lượng đã bán
+  """
+  soldQty: Int
+
+  """
+  Tiêu đề Upsale
+  """
+  upsaleTitle: String
+
+  """
+  Màu primary
+  """
+  primaryColor: String
+
+  """
+  Màu accent
+  """
+  accentColor: String
+
+  """
+  Bật tin nhắn đơn hàng
+  """
+  smsOrder: Boolean
+
+  """
+  Bạt tin nhắn OTP
+  """
+  smsOtp: Boolean
+
+  """
+  Bật tin nhắn CTV
+  """
+  smsCol: Boolean
+
+  """
+  Bật / tắt cộng tác viên
+  """
+  collaborator: Boolean
+
+  """
+  Yêu cầu duyệt cộng tác viên
+  """
+  colApprove: Boolean
+
+  """
+  Yêu cầu CTV có số đơn tối thiểu
+  """
+  colMinOrder: Int
+
+  """
+  Tính hoa hồng dựa trên điệu kiên gì
+  """
+  colCommissionBy: String
+
+  """
+  Hoa hồng cố định theo % hoặc VND
+  """
+  colCommissionUnit: String
+
+  """
+  Giá trị hoa hồng trên từng đơn hàng
+  """
+  colCommissionValue: Float
+
+  """
+  Điều khoản cộng tác viên
+  """
+  colTerm: String
+
+  """
+  Trạng thái kết nối
+  """
+  cassoStatus: String
+
+  """
+  Tài khoản Casso
+  """
+  cassoUser: Mixed
+
+  """
+  Bật / tắt chuyển khoản ngân hàng qua casso
+  """
+  cassoEnabled: Boolean
+
+  """
+  Danh sách tài khoản ngân hàng
+  """
+  banks: [Bank]
+  mbEnabled: Boolean
+  napasEnabled: Boolean
+
+  """
+  Bật / tắt thanh toán khi nhận hàng
+  """
+  codEnabled: Boolean
+
+  """
+  Bật / tắt thanh toán momo
+  """
+  momoEnabled: Boolean
+
+  """
+  Bật / tắt thanh toán vnpay
+  """
+  vnpayEnabled: Boolean
+
+  """
+  Bật / tắt thanh toán payon
+  """
+  payonEnabled: Boolean
+
+  """
+  Bật / tắt thanh toán zalo
+  """
+  zalopayEnabled: Boolean
+
+  """
+  Giới hạn số đơn được đặt cùng 1 lúc
+  """
+  limitOpenOrder: Int
+
+  """
+  Giới hạn số sản phẩm trong 1 đơn hàng
+  """
+  limitItem: Int
+
+  """
+  Giới hạn số lần giao hàng thất bại trong 1 đơn hàng
+  """
+  limitDeliveryFail: Int
+
+  """
+  Thông tin chung
+  """
+  intro: String
+
+  """
+  Điều khoản cửa cửa hàng
+  """
+  terms: String
+
+  orderConfig: OrderConfig
+}

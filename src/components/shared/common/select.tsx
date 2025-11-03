@@ -8,7 +8,6 @@ export interface SelectOption {
   value: string;
   label: string;
   disabled?: boolean;
-  subtitle?: string;
 }
 
 export interface SelectProps {
@@ -58,7 +57,8 @@ export default function Select(props: SelectProps) {
       label={label}
       helperText={helperText}
       placeholder={placeholder}
-      errorText={error}
+      // errorText={error}
+
       disabled={disabled}
       value={value}
       defaultValue={defaultValue}
@@ -75,18 +75,7 @@ export default function Select(props: SelectProps) {
         <Option
           key={option.value}
           value={option.value}
-          title={
-            option.subtitle
-              ? ((
-                  <div>
-                    <div>{option.label}</div>
-                    <div className="text-subtitle text-sm whitespace-pre-line">
-                      {option.subtitle}
-                    </div>
-                  </div>
-                ) as unknown as string)
-              : option.label
-          }
+          title={option.label}
           disabled={option.disabled}
         />
       ))}

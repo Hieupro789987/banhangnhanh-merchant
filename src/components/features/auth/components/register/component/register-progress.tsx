@@ -18,8 +18,8 @@ const RegisterProgress = () => {
   const progressPercentage = (currentStep / stepPath.length) * 100;
 
   return (
-    <div className="w-full bg-white">
-      <div className="h-2 w-full  bg-primary-light overflow-hidden">
+    <div className="w-full bg-white p-1">
+      <div className="h-1 w-full rounded-lg bg-primary-light overflow-hidden">
         <div
           className="h-full bg-primary transition-all duration-500 ease-out"
           style={{ width: `${progressPercentage}%` }}

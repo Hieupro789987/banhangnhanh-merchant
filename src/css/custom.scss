@@ -1,0 +1,9 @@
+.textarea-custom {
+  border: 1px solid #dee0d2;
+}
+
+.textarea-custom:focus {
+  border-color: var(--primary);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 149, 254, 0.2);
+}

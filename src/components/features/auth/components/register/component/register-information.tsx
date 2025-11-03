@@ -10,10 +10,8 @@ import ImageUpload from "@/components/shared/common/image-upload";
 const RegisterInformation = () => {
   const navigate = useNavigate();
   const { data, updateData } = useRegister();
-  console.log("data: ", data);
 
   const onSubmit = (formData: any) => {
-    console.log("formData: ", formData);
     navigate("/register/legal");
     updateData(formData);
   };

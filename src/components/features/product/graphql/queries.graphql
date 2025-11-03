@@ -1,0 +1,202 @@
+# queries.graphql
+
+# Fragment cơ bản nhất
+fragment ProductBase on Product {
+  id
+  createdAt
+  productCode
+  name
+  content
+  image
+  images
+  youtubeLink
+  subtitle
+  intro
+  basePrice
+  downPrice
+  status
+  barcode
+  saleRate
+  valueAddedTaxAmount
+  valueAddedTaxRate
+  isDisplayPriceWithCheapestAttribute
+  totalCheapestAttributePrice
+  allowSale
+}
+
+# Fragment cho danh sách sản phẩm
+fragment ProductList on Product {
+  ...ProductBase
+  priority
+  rating
+  categoryIds
+  labels {
+    id
+    createdAt
+    updatedAt
+    memberId
+    name
+    color
+  }
+  productAttributes {
+    id
+    productId
+    name
+    min
+    max
+    required
+  }
+}
+
+# Fragment chi tiết sản phẩm
+fragment ProductDetail on Product {
+  ...ProductBase
+  productTabs {
+    id
+    createdAt
+    updatedAt
+    tabId
+    productId
+    content
+    memberId
+    isActive
+    tab {
+      id
+      createdAt
+      updatedAt
+      name
+      priority
+      memberId
+    }
+  }
+  labels {
+    id
+    createdAt
+    updatedAt
+    memberId
+    name
+    color
+  }
+}
+
+# Fragment đầy đủ với toppings và attributes
+fragment ProductFull on Product {
+  ...ProductDetail
+  promotions {
+    id
+    name
+    startDate
+    endDate
+    type
+    isActive
+    description
+    applyType
+    quantity
+    receivePromotionThrough
+    remainingUseLimit
+    haveQuantity
+    imageUrl
+    isLifetimeUnlimited
+    isDailyUnlimited
+    remainingLifetime
+    remainingToday
+  }
+
+  productAttributes {
+    id
+    createdAt
+    updatedAt
+    parentProductAttributeId
+    parentProductAttributeElementId
+    productId
+    memberId
+    name
+    required
+    min
+    max
+    parentProductAttribute {
+      id
+      createdAt
+      updatedAt
+      parentProductAttributeId
+      parentProductAttributeElementId
+      productId
+      memberId
+      name
+      required
+      min
+      max
+    }
+    productAttributeElements {
+      id
+      createdAt
+      updatedAt
+      productId
+      productAttributeId
+      memberId
+      name
+      code
+      price
+      isDefault
+      unit
+      childProductAttributes {
+        id
+        createdAt
+        updatedAt
+        parentProductAttributeId
+        parentProductAttributeElementId
+        productId
+        memberId
+        name
+        required
+        min
+        max
+        productAttributeElements {
+          id
+          createdAt
+          updatedAt
+          productId
+          productAttributeId
+          memberId
+          name
+          code
+          price
+          isDefault
+          unit
+        }
+      }
+    }
+  }
+}
+
+# queries.graphql
+
+# Query cho danh sách sản phẩm
+query GetAllProduct($q: QueryGetListInput) {
+  getAllProduct(q: $q) {
+    data {
+      ...ProductList
+    }
+    total
+    pagination {
+      limit
+      offset
+      page
+      total
+    }
+  }
+}
+
+# Query chi tiết sản phẩm cơ bản
+query GetOneProduct($getOneProductId: ID!) {
+  getOneProduct(id: $getOneProductId) {
+    ...ProductDetail
+  }
+}
+
+# Query chi tiết sản phẩm đầy đủ (toppings)
+query GetOneProductTopping($getOneProductId: ID!) {
+  getOneProduct(id: $getOneProductId) {
+    ...ProductFull
+  }
+}

@@ -39,3 +39,7 @@ export interface DecodedToken {
   iat: number;
   exp: number;
 }
+
+declare global {
+  const google: typeof import("@types/google.maps");
+}

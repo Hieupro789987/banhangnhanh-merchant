@@ -1,6 +1,7 @@
 import RegisterProgress from "@/components/features/auth/components/register/component/register-progress";
 import { RegisterProvider } from "@/components/features/auth/components/register/provider/register-provider";
-import React from "react";
+import { PageSkeleton } from "@/components/shared/common/skeleton";
+import React, { Suspense } from "react";
 import { Outlet } from "react-router-dom";
 
 const Register = () => {
@@ -12,7 +13,9 @@ const Register = () => {
         </div>
 
         <div className="flex-1 flex flex-col">
-          <Outlet />
+          <Suspense fallback={<PageSkeleton />}>
+            <Outlet />
+          </Suspense>
         </div>
       </div>
     </RegisterProvider>

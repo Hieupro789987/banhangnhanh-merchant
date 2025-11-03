@@ -1,4 +1,5 @@
 import {
+  EStaffPermissionScope,
   MemberGetMeDocument,
   StaffGetMeDocument,
   type Member,
@@ -22,6 +23,10 @@ interface AuthContextType {
   setMember: (member: Member) => void;
   setStaff: (staff: Staff) => void;
   clearAuth: () => void;
+
+  isCheckStaffPermissionScope: (
+    permissionScope: EStaffPermissionScope
+  ) => boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -60,6 +65,22 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     skip: !isAuthenticatedFromLoader || userRole !== "STAFF",
     fetchPolicy: "network-only",
   });
+
+  const isCheckStaffPermissionScope = (
+    permissionScope: EStaffPermissionScope
+  ): boolean => {
+    if (!staff?.id) return true;
+
+    if (!staff?.staffPermissions?.length) {
+      return false;
+    }
+
+    return staff.staffPermissions.some((staffPerm) => {
+      return staffPerm?.permissions?.some((perm) => {
+        return perm?.permissionScopes?.includes(permissionScope);
+      });
+    });
+  };
 
   useEffect(() => {
     if (memberData?.memberGetMe && userRole === "MEMBER") {
@@ -102,6 +123,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     setMember,
     setStaff,
     clearAuth,
+    isCheckStaffPermissionScope,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

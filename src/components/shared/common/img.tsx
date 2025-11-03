@@ -83,7 +83,7 @@ export function Img({
 
   const baseClasses = `
     transition-all duration-200
-    ${onClick || isShowClick ? "cursor-pointer hover:opacity-90" : ""}
+    ${onClick || isShowClick ? "hover:opacity-90" : ""}
     ${loading ? "opacity-0" : "opacity-100"}
   `;
 
@@ -150,6 +150,7 @@ export function Img({
         <img
           src={src}
           alt={alt}
+          loading="lazy"
           className={imgClasses}
           onError={handleError}
           onLoad={handleLoad}
@@ -159,7 +160,7 @@ export function Img({
 
         {isShowClick && !avatar && (
           <div
-            className="absolute bottom-2 right-2 bg-black/50 text-white rounded-full p-1 cursor-pointer"
+            className="absolute bottom-2 right-2 bg-black/50 text-white rounded-full p-1"
             onClick={handleClick}
           >
             <FaExpand className="w-3 h-3" />

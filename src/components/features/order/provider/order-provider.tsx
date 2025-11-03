@@ -4,6 +4,10 @@ import {
   GenerateDraftOrderDocument,
   GenerateOrderDocument,
   Order,
+  OrderItem,
+  OrderItemInput,
+  OrderItemProductAttributeElement,
+  Product,
 } from "@/generated/graphql";
 import { useMutation } from "@apollo/client/react";
 import React, {
@@ -28,7 +32,23 @@ type OrderAction =
   | { type: "SET_FINAL_ORDER"; payload: Order }
   | { type: "SET_LOADING"; payload: boolean }
   | { type: "SET_ERROR"; payload: string | null }
-  | { type: "RESET_ORDER" };
+  | { type: "RESET_ORDER" }
+  | { type: "UPDATE_PRODUCT"; payload: OrderItem }
+  | { type: "REMOVE_ORDER_ITEM"; payload: string }
+  | {
+      type: "ADD_PRODUCT_WITH_TOPPINGS";
+      payload: {
+        product: Product;
+        productAttributeElements: OrderItemProductAttributeElement[];
+      };
+    }
+  | {
+      type: "UPDATE_PRODUCT_TOPPINGS";
+      payload: {
+        itemId: string;
+        productAttributeElements: OrderItemProductAttributeElement[];
+      };
+    };
 
 const initialState: OrderState = {
   orderDataInput: {
@@ -62,6 +82,27 @@ const initialState: OrderState = {
   error: null,
 };
 
+const convertOrderItemToOrderItemInput = (item: OrderItem): OrderItemInput => ({
+  quantity: item?.qty || 1,
+  basePrice: item?.basePrice,
+  note: item?.note || "",
+  productId: item?.productId,
+  pricePolicyId: item?.pricePolicyId,
+  productName: item?.productName,
+  productImageUrl: item?.product?.image,
+  supplierId: item?.product?.supplierId,
+  categoryIds: item?.product?.categoryIds,
+  productAttributeElements:
+    item?.productAttributeElements?.map(
+      (attr: OrderItemProductAttributeElement) => ({
+        productAttributeElementId: attr?.productAttributeElementId || "",
+      })
+    ) || [],
+  valueAddedTaxRateCode: item?.valueAddedTaxRateCode,
+  toppings: item?.toppings,
+  unitId: item?.product?.unitId,
+});
+
 const orderReducer = (state: OrderState, action: OrderAction): OrderState => {
   switch (action.type) {
     case "UPDATE_ORDER_INPUT":
@@ -84,6 +125,101 @@ const orderReducer = (state: OrderState, action: OrderAction): OrderState => {
       return { ...state, error: action.payload, loading: false };
     case "RESET_ORDER":
       return { ...initialState };
+
+    case "UPDATE_PRODUCT":
+      const updatedDraftItems = (state.draftOrder?.order?.items || []).map(
+        (item) => (item?.id === action.payload.id ? action.payload : item)
+      );
+
+      const updatedInputItems = updatedDraftItems.map(
+        convertOrderItemToOrderItemInput
+      );
+
+      return {
+        ...state,
+        orderDataInput: {
+          ...state.orderDataInput,
+          items: updatedInputItems,
+        },
+      };
+
+    case "REMOVE_ORDER_ITEM":
+      const filteredDraftItems = (state.draftOrder?.order?.items || []).filter(
+        (item) => item?.id !== action.payload
+      );
+
+      const updatedInputItemsAfterRemove = filteredDraftItems.map(
+        convertOrderItemToOrderItemInput
+      );
+
+      return {
+        ...state,
+        draftOrder: state.draftOrder
+          ? {
+              ...state.draftOrder,
+              order: state.draftOrder.order
+                ? {
+                    ...state.draftOrder.order,
+                    items: filteredDraftItems,
+                  }
+                : null,
+            }
+          : null,
+        orderDataInput: {
+          ...state.orderDataInput,
+          items: updatedInputItemsAfterRemove,
+        },
+      };
+
+    case "ADD_PRODUCT_WITH_TOPPINGS":
+      const newOrderItem: OrderItemInput = {
+        quantity: 1,
+        productId: action.payload.product.id || "",
+        productName: action.payload.product.name || "",
+        productImageUrl: action.payload.product.image || "",
+        basePrice: action.payload.product.basePrice || 0,
+        note: "",
+        productAttributeElements: action.payload.productAttributeElements.map(
+          (attr) => ({
+            productAttributeElementId: attr.productAttributeElementId || "",
+          })
+        ),
+      };
+
+      const currentItems = state.orderDataInput.items || [];
+      return {
+        ...state,
+        orderDataInput: {
+          ...state.orderDataInput,
+          items: [...currentItems, newOrderItem],
+        },
+      };
+
+    case "UPDATE_PRODUCT_TOPPINGS":
+      const draftItemsWithUpdatedToppings = (
+        state.draftOrder?.order?.items || []
+      ).map((item) => {
+        if (item?.id === action.payload.itemId) {
+          return {
+            ...item,
+            productAttributeElements: action.payload.productAttributeElements,
+          };
+        }
+        return item;
+      });
+
+      const inputItemsWithUpdatedToppings = draftItemsWithUpdatedToppings.map(
+        convertOrderItemToOrderItemInput
+      );
+
+      return {
+        ...state,
+        orderDataInput: {
+          ...state.orderDataInput,
+          items: inputItemsWithUpdatedToppings,
+        },
+      };
+
     default:
       return state;
   }
@@ -96,6 +232,18 @@ interface OrderContextType {
   generateFinalOrder: () => Promise<void>;
   resetOrder: () => void;
   isValidForOrder: boolean;
+  updateProduct: (orderItem: OrderItem) => void;
+  removeOrderItem: (itemId: string) => void;
+  addProductWithToppings: (
+    product: Product,
+    productAttributeElements: OrderItemProductAttributeElement[]
+  ) => void;
+  updateProductToppings: (
+    itemId: string,
+    productAttributeElements: OrderItemProductAttributeElement[]
+  ) => void;
+  findOrderItemById: (itemId: string) => OrderItem | undefined;
+  findOrderItemByProductId: (productId: string) => OrderItem | undefined;
 }
 
 const OrderContext = createContext<OrderContextType | undefined>(undefined);
@@ -108,11 +256,66 @@ export const OrderProvider: React.FC<{ children: React.ReactNode }> = ({
   const [generateDraftOrderMutation] = useMutation(GenerateDraftOrderDocument);
   const [generateOrderMutation] = useMutation(GenerateOrderDocument);
 
+  const updateProduct = useCallback((orderItem: OrderItem) => {
+    dispatch({ type: "UPDATE_PRODUCT", payload: orderItem });
+  }, []);
+
+  const removeOrderItem = useCallback((itemId: string) => {
+    dispatch({ type: "REMOVE_ORDER_ITEM", payload: itemId });
+  }, []);
+
   const updateOrderInput = useCallback(
     (input: Partial<CreateDraftOrderInput>) => {
       dispatch({ type: "UPDATE_ORDER_INPUT", payload: input });
     },
     []
+  );
+
+  const addProductWithToppings = useCallback(
+    (
+      product: Product,
+      productAttributeElements: OrderItemProductAttributeElement[]
+    ) => {
+      dispatch({
+        type: "ADD_PRODUCT_WITH_TOPPINGS",
+        payload: { product, productAttributeElements },
+      });
+    },
+    []
+  );
+
+  const updateProductToppings = useCallback(
+    (
+      itemId: string,
+      productAttributeElements: OrderItemProductAttributeElement[]
+    ) => {
+      dispatch({
+        type: "UPDATE_PRODUCT_TOPPINGS",
+        payload: { itemId, productAttributeElements },
+      });
+    },
+    []
+  );
+
+  const findOrderItemById = useCallback(
+    (itemId: string): OrderItem | undefined => {
+      return (
+        state.draftOrder?.order?.items?.find((item) => item?.id === itemId) ||
+        undefined
+      );
+    },
+    [state.draftOrder?.order?.items]
+  );
+
+  const findOrderItemByProductId = useCallback(
+    (productId: string): OrderItem | undefined => {
+      return (
+        state.draftOrder?.order?.items?.find(
+          (item) => item?.productId === productId
+        ) || undefined
+      );
+    },
+    [state.draftOrder?.order?.items]
   );
 
   const generateDraftOrder = useCallback(async () => {
@@ -158,9 +361,6 @@ export const OrderProvider: React.FC<{ children: React.ReactNode }> = ({
   }, []);
 
   useEffect(() => {
-    // const { items, shopBranchId } = state.orderDataInput;
-    // if (!items?.length || !shopBranchId) return;
-
     const timeoutId = setTimeout(generateDraftOrder, 500);
     return () => clearTimeout(timeoutId);
   }, [state.orderDataInput, generateDraftOrder]);
@@ -178,6 +378,12 @@ export const OrderProvider: React.FC<{ children: React.ReactNode }> = ({
         generateFinalOrder,
         resetOrder,
         isValidForOrder,
+        updateProduct,
+        removeOrderItem,
+        addProductWithToppings,
+        updateProductToppings,
+        findOrderItemById,
+        findOrderItemByProductId,
       }}
     >
       {children}

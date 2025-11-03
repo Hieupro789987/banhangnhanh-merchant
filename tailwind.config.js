@@ -6,6 +6,17 @@ module.exports = {
   },
   theme: {
     extend: {
+      fontFamily: {
+        sans: [
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "Segoe UI",
+          "Roboto",
+          "Helvetica Neue",
+          "Arial",
+          "sans-serif",
+        ],
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
@@ -23,7 +34,17 @@ module.exports = {
         success: "var(--success)",
         warning: "var(--warning)",
       },
-
+      backgroundImage: {
+        "primary-gradient":
+          "linear-gradient(to right, var(--primary), var(--primary-dark))",
+        "primary-gradient-h":
+          "linear-gradient(to right, var(--primary-dark), var(--primary))",
+        "primary-gradient-v":
+          "linear-gradient(to bottom, var(--primary-dark), var(--primary))",
+      },
+      boxShadow: {
+        card: "var(--shadow-card)",
+      },
       spacing: {
         st: "var(--safe-top)",
         sb: "var(--safe-bottom)",

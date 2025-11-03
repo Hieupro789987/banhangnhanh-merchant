@@ -19,6 +19,10 @@ query GetAllShopBranch(
       activated
       location
       isOpen
+      address
+      ward
+      district
+      province
     }
     pagination {
       limit

@@ -25,7 +25,9 @@
   },
   "dependencies": {
     "@apollo/client": "^4.0.8",
+    "@googlemaps/js-api-loader": "^2.0.2",
     "@react-spring/web": "^9.7.4",
+    "@types/google.maps": "^3.58.1",
     "@types/lodash": "^4.17.20",
     "@use-gesture/react": "^10.3.1",
     "date-fns": "^4.1.0",

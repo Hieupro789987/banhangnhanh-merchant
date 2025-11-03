@@ -1,0 +1,5 @@
+type PaymentMethodData {
+  label: String
+  value: String
+  balanceAvailable: Mixed
+}

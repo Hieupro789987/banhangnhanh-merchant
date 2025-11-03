@@ -26,7 +26,7 @@ export default function Header() {
   const phone = member?.phone || staff?.phone;
   return (
     <div
-      className="w-full  flex flex-col bg-gradient-to-r to-[#0F4591] from-[#0095FE]  px-4 text-primaryForeground pt-st overflow-hidden bg-no-repeat bg-right-top"
+      className="w-full  flex flex-col bg-primary-gradient  px-4 text-primaryForeground pt-st overflow-hidden bg-no-repeat bg-right-top"
       style={
         {
           // backgroundImage: `url(${headerIllus})`,

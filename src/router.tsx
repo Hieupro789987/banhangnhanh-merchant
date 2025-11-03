@@ -1,9 +1,5 @@
 import Layout from "@/components/layout/layout";
-
-// import RegisterPage from "@/pages/auth/register";
-import { createBrowserRouter, Navigate } from "react-router-dom";
-import { getBasePath } from "@/components/shared/utils/zma";
-
+import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 import { lazy } from "react";
 import { nativeStorage } from "zmp-sdk";
 import { isTokenExpired } from "@/components/shared/utils/token";
@@ -11,9 +7,10 @@ import { AuthProvider } from "@/components/features/auth/provider/auth-provider"
 import { jwtDecode } from "jwt-decode";
 import { DecodedToken } from "@/types";
 import { OrderProvider } from "@/components/features/order/provider/order-provider";
+import { getBasePath } from "@/components/shared/utils/zma";
+import { ShopConfigProvider } from "@/components/features/shop-config/provider/shop-config-provider";
 
 const HomePage = lazy(() => import("@/pages/home/"));
-
 const LoginPage = lazy(() => import("@/pages/login/"));
 const RegisterPage = lazy(() => import("@/pages/register/"));
 const RegisterInformationPage = lazy(
@@ -22,34 +19,26 @@ const RegisterInformationPage = lazy(
 const RegisterLegalPage = lazy(
   () => import("@/pages/register/register-legal/")
 );
-
 const RegisterShopTypePage = lazy(
   () => import("@/pages/register/register-shopType/")
 );
-
 const RegisterFeaturesPage = lazy(
   () => import("@/pages/register/register-features/")
 );
-
 const RegisterOverviewPage = lazy(
   () => import("@/pages/register/register-overview/")
 );
-
-//order
-
 const CreateOrderPage = lazy(() => import("@/pages/create-order"));
+const AddProductPage = lazy(() => import("@/pages/product/"));
 
 const authLoader = () => {
   const token = nativeStorage.getItem(`token`);
-  console.log("token: ", token);
-
   if (!token || isTokenExpired(token)) {
     return { isAuthenticated: false, role: null, userId: null };
   }
 
   try {
     const decoded = jwtDecode<DecodedToken>(token);
-    console.log("decoded: ", decoded);
     return {
       isAuthenticated: true,
       role: decoded.role,
@@ -68,7 +57,9 @@ const router = createBrowserRouter(
       path: "/",
       element: (
         <AuthProvider>
-          <Layout />
+          <ShopConfigProvider>
+            <Layout />
+          </ShopConfigProvider>
         </AuthProvider>
       ),
       loader: authLoader,
@@ -86,13 +77,29 @@ const router = createBrowserRouter(
           path: "/create-order",
           element: (
             <OrderProvider>
-              <CreateOrderPage />
+              <Outlet />
             </OrderProvider>
           ),
-          handle: {
-            title: "Xác nhận đơn hàng",
-            noFooter: true,
-          },
+          children: [
+            {
+              path: "",
+              element: <CreateOrderPage />,
+              handle: {
+                title: "Xác nhận đơn hàng",
+                noFooter: true,
+              },
+            },
+            {
+              path: "add-products",
+              element: <AddProductPage />,
+              handle: {
+                title: "Chọn sản phẩm",
+                noBack: false,
+                noHeader: false,
+                noFooter: true,
+              },
+            },
+          ],
         },
         {
           path: "/login",
@@ -127,7 +134,6 @@ const router = createBrowserRouter(
                 noHeader: true,
               },
             },
-
             {
               path: "legal",
               element: <RegisterLegalPage />,
@@ -137,7 +143,6 @@ const router = createBrowserRouter(
                 noHeader: true,
               },
             },
-
             {
               path: "type",
               element: <RegisterShopTypePage />,
@@ -147,7 +152,6 @@ const router = createBrowserRouter(
                 noHeader: true,
               },
             },
-
             {
               path: "features",
               element: <RegisterFeaturesPage />,
@@ -157,7 +161,6 @@ const router = createBrowserRouter(
                 noHeader: true,
               },
             },
-
             {
               path: "overview",
               element: <RegisterOverviewPage />,

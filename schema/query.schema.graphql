@@ -1,5 +1,6 @@
 # ============ QUERIES ============
 type Query {
+  getAllCustomer(q: QueryGetListInput): CustomerPageData
   customerGetMe: Customer
   memberGetMe: Member
   staffGetMe: Staff
@@ -7,4 +8,14 @@ type Query {
     q: QueryGetListInput
     staffPermissionScope: EStaffPermissionScope
   ): ShopBranchPageData
+
+  getAllProduct(q: QueryGetListInput): ProductPageData
+  getOneProduct(id: ID!): Product
+
+  getProvince: [Address]
+  getDistrict(provinceId: String!): [Address]
+  getWard(districtId: String!): [Address]
+  getShopConfig: ShopConfig
+
+  getAllPaymentMethod(shopBranchId: ID): [PaymentMethodData]
 }

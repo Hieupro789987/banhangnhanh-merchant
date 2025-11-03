@@ -11,7 +11,6 @@ import { nativeStorage } from "zmp-sdk";
 export default function Layout() {
   const navigate = useNavigate();
   const loaderData = useLoaderData() as { isAuthenticated?: boolean };
-
   useEffect(() => {
     const isAuthenticated = loaderData?.isAuthenticated;
     if (!isAuthenticated) {
@@ -22,7 +21,7 @@ export default function Layout() {
   }, []);
 
   return (
-    <div className="w-screen h-screen flex flex-col  text-foreground">
+    <div className="w-screen font-sans h-screen flex flex-col  text-foreground">
       <Header />
       <div className="flex-1 overflow-y-auto bg-background">
         <Suspense fallback={<PageSkeleton />}>

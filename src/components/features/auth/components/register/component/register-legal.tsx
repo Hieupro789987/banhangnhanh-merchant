@@ -8,10 +8,8 @@ import { useNavigate } from "react-router";
 const RegisterLegal = () => {
   const navigate = useNavigate();
   const { data, updateData } = useRegister();
-  console.log("data: ", data);
 
   const onSubmit = (formData: any) => {
-    console.log("formData: ", formData);
     updateData(formData);
     navigate("/register/type");
   };

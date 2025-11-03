@@ -93,3 +93,9 @@ type Product {
   pricePolicy: PricePolicy
   url: String
 }
+
+type ProductPageData {
+  data: [Product]
+  total: Int
+  pagination: Pagination
+}

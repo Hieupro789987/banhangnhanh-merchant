@@ -1,0 +1,31 @@
+mutation GetAllDeliveryServiceAvailable(
+  $data: GetAllDeliveryServiceAvailableInput!
+) {
+  getAllDeliveryServiceAvailable(data: $data) {
+    shipMethod
+    serviceId
+    serviceName
+    deliveryName
+    iconUrl
+    duration
+    shipFee
+    shipSurcharge
+    discount
+    requests {
+      name
+      requestId
+      iconUrl
+      type
+      description
+      price
+      tierList {
+        code
+        name
+        price
+        priceDescription
+        description
+        imageUrl
+      }
+    }
+  }
+}

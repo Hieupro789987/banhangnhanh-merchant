@@ -1,0 +1,24 @@
+query GetShopConfig {
+  getShopConfig {
+    orderConfig {
+      allowDelivery
+      deliveryConfig {
+        internalDriverConfig {
+          isCalculateShipFeeByShopSetting
+          isCalculateShipFeeByAhamove
+          isCalculateShipFeeByGrabExpress
+          isAllowCustomerChoose
+        }
+        isActivated
+        deliveryAddressConfig {
+          administrativeAddressConfig {
+            isActivated
+          }
+          coordinateBasedAddressConfig {
+            isActivated
+          }
+        }
+      }
+    }
+  }
+}
