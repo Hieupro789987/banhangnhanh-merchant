@@ -1,7 +1,13 @@
 query GetShopConfig {
   getShopConfig {
+    valueAddedTaxConfig {
+      isActivated
+      defaultValueAddedTaxRate
+      defaultValueAddedTaxRateCode
+    }
     orderConfig {
       allowDelivery
+
       deliveryConfig {
         internalDriverConfig {
           isCalculateShipFeeByShopSetting

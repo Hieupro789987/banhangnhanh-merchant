@@ -1,4 +1,3 @@
-// components/shared/common/bottom-sheet.tsx
 import React from "react";
 import { createPortal } from "react-dom";
 import { Icon, Sheet } from "zmp-ui";

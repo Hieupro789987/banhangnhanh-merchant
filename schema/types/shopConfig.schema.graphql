@@ -211,4 +211,11 @@ type ShopConfig {
   terms: String
 
   orderConfig: OrderConfig
+  valueAddedTaxConfig: ValueAddedTaxConfig
+}
+
+type ValueAddedTaxConfig {
+  isActivated: Boolean
+  defaultValueAddedTaxRate: Float
+  defaultValueAddedTaxRateCode: EInvoiceTaxRateCode
 }

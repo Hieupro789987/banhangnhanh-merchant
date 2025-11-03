@@ -18,4 +18,9 @@ type Query {
   getShopConfig: ShopConfig
 
   getAllPaymentMethod(shopBranchId: ID): [PaymentMethodData]
+  getAllOrder(
+    q: QueryGetListInput
+    staffPermissionScope: EStaffPermissionScope
+  ): OrderPageData
+  getOneOrder(id: ID!): Order
 }

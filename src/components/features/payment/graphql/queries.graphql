@@ -5,3 +5,7 @@ query GetAllPaymentMethod($shopBranchId: ID) {
     balanceAvailable
   }
 }
+
+mutation generateMacZaloMiniApp($dataMac: Mixed) {
+  generateMacZaloMiniApp(dataMac: $dataMac)
+}

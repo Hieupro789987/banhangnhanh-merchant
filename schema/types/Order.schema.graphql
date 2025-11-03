@@ -151,3 +151,10 @@ type Order {
   driverLicense: String
   commented: Boolean
 }
+
+type OrderPageData {
+  data: [Order]
+  total: Int
+  pagination: Pagination
+  error: Mixed
+}

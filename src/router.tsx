@@ -30,6 +30,7 @@ const RegisterOverviewPage = lazy(
 );
 const CreateOrderPage = lazy(() => import("@/pages/create-order"));
 const AddProductPage = lazy(() => import("@/pages/product/"));
+const OrdersPage = lazy(() => import("@/pages/orders/"));
 
 const authLoader = () => {
   const token = nativeStorage.getItem(`token`);
@@ -100,6 +101,15 @@ const router = createBrowserRouter(
               },
             },
           ],
+        },
+        {
+          path: "/orders",
+          element: <OrdersPage />,
+          handle: {
+            title: "Danh sách đơn hàng",
+            noFooter: true,
+            noHeader: true,
+          },
         },
         {
           path: "/login",

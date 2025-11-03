@@ -25,13 +25,19 @@ const ReceiverInformation: FC<ReceiverInformationProps> = () => {
   const { state } = useOrder();
   const [isOpenEdit, setIsOpenEdit] = useState(false);
 
-  const userName = state?.draftOrder?.order?.receiverPhone
-    ? state?.draftOrder?.order?.receiverName
-      ? `${state?.draftOrder?.order?.receiverName} - ${state?.draftOrder?.order?.receiverPhone}`
-      : state?.draftOrder?.order?.receiverPhone
+  const receiverPhone =
+    state?.draftOrder?.order?.receiverPhone ||
+    state?.draftOrder?.order?.buyerPhone;
+  const receiverName =
+    state?.draftOrder?.order?.receiverName ||
+    state?.draftOrder?.order?.buyerName;
+  const userName = receiverPhone
+    ? receiverName
+      ? `${receiverName} - ${receiverPhone}`
+      : receiverPhone
     : "";
 
-  const receiverFullAddress = state?.draftOrder?.order?.receiverFullAddress;
+  const receiverFullAddress = state?.orderDataInput?.receiverFullAddress;
 
   return (
     <div className="bg-white p-4 shadow-card rounded-lg">
@@ -116,7 +122,7 @@ const ReceiverInformation: FC<ReceiverInformationProps> = () => {
         onClose={() => setIsOpenEdit(false)}
         title="Nhập thông tin người nhận"
       >
-        <ReceiverInformationForm onClose={setIsOpenEdit} />
+        {isOpenEdit && <ReceiverInformationForm onClose={setIsOpenEdit} />}
       </BottomSheet>
     </div>
   );
@@ -170,9 +176,13 @@ const ReceiverInformationForm = ({ onClose }) => {
     <Form
       onSubmit={handleSubmit}
       defaultValues={{
-        receiverName: state?.draftOrder?.order?.receiverName,
-        receiverPhone: state?.draftOrder?.order?.receiverPhone,
-        receiverFullAddress: state?.draftOrder?.order?.receiverPhone,
+        receiverName:
+          state?.draftOrder?.order?.receiverName ||
+          state?.draftOrder?.order?.buyerName,
+        receiverPhone:
+          state?.draftOrder?.order?.receiverPhone ||
+          state?.draftOrder?.order?.buyerPhone,
+        receiverFullAddress: state?.orderDataInput?.receiverFullAddress,
         provinceId: state?.draftOrder?.order?.receiverProvinceId,
         districtId: state?.draftOrder?.order?.receiverDistrictId,
         wardId: state?.draftOrder?.order?.receiverWardId,

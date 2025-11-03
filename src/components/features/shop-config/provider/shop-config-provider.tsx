@@ -43,7 +43,7 @@ export function ShopConfigProvider({ children }: ShopConfigProviderProps) {
 
   return (
     <ShopConfigContext.Provider value={value}>
-      {children}
+      {loading ? <></> : children}
     </ShopConfigContext.Provider>
   );
 }

@@ -1,7 +1,9 @@
 import {
   CreateDraftOrderInput,
   DraftOrderData,
+  EShipMethod,
   GenerateDraftOrderDocument,
+  generateMacZaloMiniAppDocument,
   GenerateOrderDocument,
   Order,
   OrderItem,
@@ -17,6 +19,8 @@ import React, {
   useReducer,
   useEffect,
 } from "react";
+import { createOrder } from "zmp-sdk/apis";
+import { useNavigate } from "react-router-dom";
 
 interface OrderState {
   orderDataInput: CreateDraftOrderInput;
@@ -75,6 +79,7 @@ const initialState: OrderState = {
     promotionId: "",
     promotionApplies: [],
     haveIssueInvoice: false,
+    customerShipMethod: EShipMethod.DRIVER,
   },
   draftOrder: null,
   finalOrder: null,
@@ -82,7 +87,9 @@ const initialState: OrderState = {
   error: null,
 };
 
-const convertOrderItemToOrderItemInput = (item: OrderItem): OrderItemInput => ({
+export const convertOrderItemToOrderItemInput = (
+  item: OrderItem
+): OrderItemInput => ({
   quantity: item?.qty || 1,
   basePrice: item?.basePrice,
   note: item?.note || "",
@@ -154,17 +161,6 @@ const orderReducer = (state: OrderState, action: OrderAction): OrderState => {
 
       return {
         ...state,
-        draftOrder: state.draftOrder
-          ? {
-              ...state.draftOrder,
-              order: state.draftOrder.order
-                ? {
-                    ...state.draftOrder.order,
-                    items: filteredDraftItems,
-                  }
-                : null,
-            }
-          : null,
         orderDataInput: {
           ...state.orderDataInput,
           items: updatedInputItemsAfterRemove,
@@ -243,7 +239,9 @@ interface OrderContextType {
     productAttributeElements: OrderItemProductAttributeElement[]
   ) => void;
   findOrderItemById: (itemId: string) => OrderItem | undefined;
+
   findOrderItemByProductId: (productId: string) => OrderItem | undefined;
+  onPay: () => Promise<void>;
 }
 
 const OrderContext = createContext<OrderContextType | undefined>(undefined);
@@ -251,10 +249,12 @@ const OrderContext = createContext<OrderContextType | undefined>(undefined);
 export const OrderProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
+  const navigate = useNavigate();
   const [state, dispatch] = useReducer(orderReducer, initialState);
 
   const [generateDraftOrderMutation] = useMutation(GenerateDraftOrderDocument);
   const [generateOrderMutation] = useMutation(GenerateOrderDocument);
+  const [getMac] = useMutation(generateMacZaloMiniAppDocument);
 
   const updateProduct = useCallback((orderItem: OrderItem) => {
     dispatch({ type: "UPDATE_PRODUCT", payload: orderItem });
@@ -345,6 +345,7 @@ export const OrderProvider: React.FC<{ children: React.ReactNode }> = ({
       });
       if (data?.generateOrder) {
         dispatch({ type: "SET_FINAL_ORDER", payload: data.generateOrder });
+        navigate("/orders");
       }
     } catch (error) {
       dispatch({
@@ -355,7 +356,60 @@ export const OrderProvider: React.FC<{ children: React.ReactNode }> = ({
       dispatch({ type: "SET_LOADING", payload: false });
     }
   }, [state.orderDataInput, generateOrderMutation]);
+  const onPay = async () => {
+    try {
+      if (state.error) {
+        return;
+      }
+      if (state.loading) {
+        return;
+      }
 
+      const items = state?.draftOrder?.order?.items?.map((item) => ({
+        id: item?.id || "",
+        amount: item?.basePrice || 0,
+      }));
+
+      const data = {
+        desc: `Thanh toán`,
+        item: items || [],
+        amount: state.finalOrder?.amount || 0,
+        method: JSON.stringify({
+          id: "COD",
+          // id: state.finalOrder?.paymentMethod,
+          // isCustom: !ALL_PAYMENT_METHODS.includes(
+          //   state.finalOrder?.paymentMethod as PAYMENT_METHOD_ZALO
+          // ),
+        }),
+      };
+
+      const mac = (await getMac({
+        variables: {
+          dataMac: data as any,
+        },
+      })) as any;
+
+      const macKey = mac?.data?.generateMacZaloMiniApp;
+
+      if (macKey) {
+        createOrder({
+          ...data,
+          mac: macKey || "",
+          success: (data) => {
+            const { orderId } = data;
+            if (orderId) {
+              generateFinalOrder();
+            }
+          },
+          fail: (err) => {
+            console.log("Payment error: ", err);
+          },
+        });
+      }
+    } catch (e) {
+      console.log("Payment error: ", e);
+    }
+  };
   const resetOrder = useCallback(() => {
     dispatch({ type: "RESET_ORDER" });
   }, []);
@@ -384,6 +438,7 @@ export const OrderProvider: React.FC<{ children: React.ReactNode }> = ({
         updateProductToppings,
         findOrderItemById,
         findOrderItemByProductId,
+        onPay,
       }}
     >
       {children}

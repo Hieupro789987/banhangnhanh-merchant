@@ -1,0 +1,585 @@
+fragment OrderFragment on Order {
+  id
+  createdAt
+  updatedAt
+  code
+  itemIds
+  amount
+  subtotal
+  originSubTotal
+  toppingAmount
+  shipMethod
+  shipfee
+  shipDistance
+  paymentMethod
+  note
+  cancelReason
+  itemCount
+  commented
+  sellerId
+  sellerCode
+  sellerName
+  status
+  buyerId
+  buyerName
+  buyerFullAddress
+  buyerPhone
+  buyerAddress
+  buyerAddressNote
+  buyerProvince
+  buyerDistrict
+  buyerWard
+  buyerProvinceId
+  buyerDistrictId
+  buyerWardId
+  paymentMethodText
+  paymentStatus
+  shipMethodText
+  statusText
+  isUrbanDelivery
+  latitude
+  longitude
+  discount
+  discountDetail
+  rewardPoint
+  discountPoint
+  useRewardPoint
+  ahamoveTrackingLink
+  discountLogs
+  logs {
+    id
+    statusText
+    createdAt
+    updatedAt
+  }
+  hasValueAddedTax
+  items {
+    id
+    createdAt
+    updatedAt
+    orderId
+    sellerId
+    buyerId
+    note
+    isPrimary
+    productId
+    productName
+    basePrice
+    qty
+    valueAddedTaxAmount
+    valueAddedTaxRate
+    amount
+    product {
+      id
+      name
+      image
+      downPrice
+      basePrice
+    }
+    toppings {
+      toppingId
+      toppingName
+      optionName
+      price
+    }
+    productAttributeElements {
+      productAttributeElementId
+      productAttributeElementName
+      productAttributeElementPrice
+      productAttributeId
+      productAttributeName
+      productId
+    }
+    warehouseProduct {
+      id
+      inStockCount
+    }
+  }
+  seller {
+    id
+    name
+    code
+    address
+    shopLogo
+    shopName
+  }
+  fromMember {
+    id
+    name
+    phone
+  }
+
+  buyer {
+    id
+    name
+    phone
+  }
+  deliveringMember {
+    id
+    name
+  }
+  toMember {
+    id
+    name
+  }
+  deliveryInfo {
+    senderFullname
+    senderTel
+    senderAddress
+    senderWardId
+    senderProvinceId
+    senderDistrictId
+    receiverFullname
+    receiverAddress
+    receiverTel
+    receiverProvinceId
+    receiverDistrictId
+    receiverWardId
+    receiverAddressType
+    serviceName
+    serviceIcon
+    orderCode
+    packageContent
+    weightEvaluation
+    widthEvaluation
+    lengthEvaluation
+    heightEvaluation
+    codAmountEvaluation
+    isPackageViewable
+    pickupType
+    orderAmountEvaluation
+    isReceiverPayFreight
+    customerNote
+    useBaoPhat
+    useHoaDon
+    customerCode
+    vendorId
+    itemCode
+    orderId
+    createTime
+    lastUpdateTime
+    deliveryDateEvaluation
+    cancelTime
+    deliveryTime
+    deliveryTimes
+    status
+    statusText
+    partnerFee
+    promotionCode
+    partnerDiscount
+    sharedLink
+    image
+  }
+
+  orderType
+  orderTypeText
+  pickupMethod
+  pickupTime
+  shopBranchId
+  driverId
+  driverName
+  driverPhone
+  driverLicense
+  shopBranch {
+    name
+    code
+    address
+    phone
+    province
+    district
+    ward
+  }
+  paymentStatus
+  paymentMeta
+  paymentFilledAmount
+  paymentLogs
+
+  referralCode
+
+  productPricePolicyDiscount
+  totalProfit
+  productCommissionCost
+  hasUserConfirmTransfer
+  mbQrCode
+  shopShipFee
+  customerShipMethod
+  customerShipServiceId
+  customerShipServiceName
+  customerShipDeliveryName
+  voucher {
+    code
+  }
+  maxUseRewardPoint
+  orderPromotions {
+    promotion {
+      name
+    }
+    promotionId
+    receivedOfferProduct {
+      product {
+        id
+        name
+        image
+      }
+      quantity
+    }
+  }
+  allowUserCancel
+  haveIssueInvoice
+  successRedirectUrl
+  failRedirectUrl
+  receiverName
+  receiverPhone
+  receiverAddress
+}
+
+fragment OrderDetailFragment on Order {
+  id
+  createdAt
+  updatedAt
+  code
+  itemIds
+  amount
+  subtotal
+  originSubTotal
+  toppingAmount
+  shipMethod
+  shipfee
+  shipDistance
+  paymentMethod
+  note
+  cancelReason
+  itemCount
+  commented
+  sellerId
+  sellerCode
+  sellerName
+  status
+  buyerId
+  buyerName
+  buyerFullAddress
+  buyerPhone
+  buyerAddress
+  buyerAddressNote
+  buyerProvince
+  buyerDistrict
+  buyerWard
+  buyerProvinceId
+  buyerDistrictId
+  buyerWardId
+  paymentMethodText
+  paymentStatus
+  shipMethodText
+  statusText
+  isUrbanDelivery
+  latitude
+  longitude
+  discount
+  discountDetail
+  rewardPoint
+  discountPoint
+  useRewardPoint
+  ahamoveTrackingLink
+  discountLogs
+  logs {
+    id
+    statusText
+    createdAt
+    updatedAt
+  }
+  hasValueAddedTax
+  valueAddedTaxAmount
+  items {
+    id
+    createdAt
+    updatedAt
+    orderId
+    sellerId
+    buyerId
+    note
+    isPrimary
+    productId
+    productName
+    basePrice
+    qty
+    amount
+    valueAddedTaxAmount
+    valueAddedTaxRate
+    product {
+      id
+      name
+      image
+      downPrice
+      basePrice
+      productAttributes {
+        id
+        parentProductAttributeId
+        parentProductAttributeElementId
+        productId
+        memberId
+        name
+        required
+        min
+        max
+        parentProductAttribute {
+          id
+          createdAt
+          updatedAt
+          parentProductAttributeId
+          parentProductAttributeElementId
+          productId
+          memberId
+          name
+          required
+          min
+          max
+        }
+        productAttributeElements {
+          id
+          createdAt
+          updatedAt
+          productId
+          productAttributeId
+          memberId
+          name
+          code
+          price
+          isDefault
+          unit
+          childProductAttributes {
+            id
+            createdAt
+            updatedAt
+            parentProductAttributeId
+            parentProductAttributeElementId
+            productId
+            memberId
+            name
+            required
+            min
+            max
+            productAttributeElements {
+              id
+              createdAt
+              updatedAt
+              productId
+              productAttributeId
+              memberId
+              name
+              code
+              price
+              isDefault
+              unit
+            }
+          }
+        }
+      }
+    }
+    toppings {
+      toppingId
+      toppingName
+      optionName
+      price
+    }
+    productAttributeElements {
+      productAttributeElementId
+      productAttributeElementName
+      productAttributeElementPrice
+      productAttributeId
+      productAttributeName
+      productId
+    }
+    warehouseProduct {
+      id
+      inStockCount
+    }
+  }
+  seller {
+    id
+    name
+    code
+    address
+    shopLogo
+    shopName
+  }
+  fromMember {
+    id
+    name
+    phone
+  }
+
+  buyer {
+    id
+    name
+    phone
+  }
+  deliveringMember {
+    id
+    name
+  }
+  toMember {
+    id
+    name
+  }
+  deliveryInfo {
+    senderFullname
+    senderTel
+    senderAddress
+    senderWardId
+    senderProvinceId
+    senderDistrictId
+    receiverFullname
+    receiverAddress
+    receiverTel
+    receiverProvinceId
+    receiverDistrictId
+    receiverWardId
+    receiverAddressType
+    serviceName
+    serviceIcon
+    orderCode
+    packageContent
+    weightEvaluation
+    widthEvaluation
+    lengthEvaluation
+    heightEvaluation
+    codAmountEvaluation
+    isPackageViewable
+    pickupType
+    orderAmountEvaluation
+    isReceiverPayFreight
+    customerNote
+    useBaoPhat
+    useHoaDon
+    customerCode
+    vendorId
+    itemCode
+    orderId
+    createTime
+    lastUpdateTime
+    deliveryDateEvaluation
+    cancelTime
+    deliveryTime
+    deliveryTimes
+    status
+    statusText
+    partnerFee
+    promotionCode
+    partnerDiscount
+    sharedLink
+    image
+  }
+
+  orderType
+  orderTypeText
+  pickupMethod
+  pickupTime
+  shopBranchId
+  driverId
+  driverName
+  driverPhone
+  driverLicense
+  shopBranch {
+    name
+    code
+    address
+    phone
+    province
+    district
+    ward
+  }
+  paymentStatus
+  paymentMeta
+  paymentFilledAmount
+  paymentLogs
+
+  referralCode
+
+  productPricePolicyDiscount
+  totalProfit
+  productCommissionCost
+  hasUserConfirmTransfer
+  mbQrCode
+  shopShipFee
+  customerShipMethod
+  customerShipServiceId
+  customerShipServiceName
+  customerShipDeliveryName
+  voucher {
+    code
+  }
+  maxUseRewardPoint
+  orderPromotions {
+    promotion {
+      name
+    }
+    promotionId
+    receivedOfferProduct {
+      product {
+        id
+        name
+        image
+      }
+      quantity
+    }
+  }
+  allowUserCancel
+  haveIssueInvoice
+  successRedirectUrl
+  failRedirectUrl
+  receiverName
+  receiverPhone
+  receiverAddress
+  receiverFullAddress
+}
+
+query GetAllOrder($q: QueryGetListInput) {
+  getAllOrder(q: $q) {
+    data {
+      ...OrderFragment
+    }
+    pagination {
+      limit
+      offset
+      page
+      total
+    }
+    total
+  }
+}
+
+query GetAllOrder2($q: QueryGetListInput) {
+  getAllOrder(q: $q) {
+    data {
+      id
+      sellerCode
+      code
+      createdAt
+      amount
+      itemCount
+      shopBranch {
+        name
+      }
+      status
+    }
+    pagination {
+      limit
+      offset
+      page
+      total
+    }
+    total
+  }
+}
+
+query GetOneOrder($getOneOrderId: ID!) {
+  getOneOrder(id: $getOneOrderId) {
+    ...OrderDetailFragment
+  }
+}
+
+subscription OrderStream {
+  orderStream {
+    ...OrderDetailFragment
+  }
+}

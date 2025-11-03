@@ -39,12 +39,12 @@ export function AddressGroup({
     setValue,
     formState: { errors },
   } = useFormContext();
-  console.log("errors: ", errors);
 
   const provinceId = watch(`provinceId`);
   const districtId = watch(`districtId`);
   const wardId = watch(`wardId`);
   const addressDetail = watch(`addressDetail`);
+  const defaultValue = watch(name);
   const lat = watch(`lat`);
   const lng = watch(`lng`);
 
@@ -125,21 +125,23 @@ export function AddressGroup({
         const fullAddress = `${wardName}, ${districtName}, ${provinceName}`;
 
         setValue(name, fullAddress);
-      } else {
-        setValue(name, "");
       }
+      // else {
+      //   setValue(name, "");
+      // }
     } else if (!isShowAddressSelect && isShowAddressMap) {
       if (addressDetail) {
         setValue(name, addressDetail);
       } else {
-        setValue(name, "");
+        setValue(name, defaultValue);
       }
     } else if (isShowAddressSelect && isShowAddressMap) {
       if (addressDetail && provinceName && districtName && wardName) {
         setValue(name, addressDetail);
-      } else {
-        setValue(name, "");
       }
+      // else {
+      //   setValue(name, "");
+      // }
     }
   }, [
     provinceId,
@@ -153,6 +155,7 @@ export function AddressGroup({
     name,
     isShowAddressSelect,
     isShowAddressMap,
+    defaultValue,
   ]);
 
   const selectConfig = {
@@ -296,7 +299,7 @@ export function AddressGroup({
               provinceOptions={provinceOptions}
               districtOptions={districtOptions}
               wardOptions={wardOptions}
-              addressDetail={addressDetail}
+              addressDetail={addressDetail || defaultValue}
               lat={lat}
               lng={lng}
               onChange={handleLocationChange}

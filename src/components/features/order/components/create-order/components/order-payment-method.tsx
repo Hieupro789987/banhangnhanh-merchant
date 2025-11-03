@@ -4,20 +4,19 @@ import Section from "@/components/shared/common/section";
 import { usePaymentMethods } from "@/components/shared/hooks/use-paymentMethod";
 import { parseNumber } from "@/components/shared/utils/format";
 import React, { useState } from "react";
-import { RiWalletFill } from "react-icons/ri";
+import { RiEditFill, RiWalletFill } from "react-icons/ri";
 import { Icon, List } from "zmp-ui";
-import CodImg from "@/static/cod-icon.png";
-import bankTransferImg from "@/static/bankTransfer-icon.png";
-import mbImg from "@/static/mb-icon.png";
-import shoppingImg from "@/static/shopping-wallet-icon.png";
-import payQrImg from "@/static/payQr-icon.png";
+
 import { EPaymentMethod } from "@/generated/graphql";
 import { Img } from "@/components/shared/common/img";
+import { getPaymentMethodIcon } from "@/components/shared/utils/payment";
 
 const OrderPaymentMethod = () => {
   const { state, updateOrderInput } = useOrder();
+
   const { paymentMethods, loading } = usePaymentMethods(
-    state?.draftOrder?.order?.shopBranchId || ""
+    state?.draftOrder?.order?.shopBranchId || "",
+    !state?.draftOrder?.order?.shopBranchId
   );
   const [visible, setVisible] = useState(false);
 
@@ -25,25 +24,7 @@ const OrderPaymentMethod = () => {
     (p) => p?.value === state?.draftOrder?.order?.paymentMethod
   );
 
-  const getPaymentMethodIcon = (method: EPaymentMethod) => {
-    switch (method) {
-      case "BANK_TRANSFER":
-        return bankTransferImg;
-      case "COD":
-        return CodImg;
-      case "MBBANK":
-        return mbImg;
-      case "SHOPPING_WALLET":
-        return shoppingImg;
-      case "NEXT_PAY_ONLINE_QR":
-      case "NEXT_PAY_EDC_QR":
-      case "NEXT_PAY_EDC_CARD":
-        return payQrImg;
-
-      default:
-        return bankTransferImg;
-    }
-  };
+  const paymentMethod = state?.draftOrder?.order?.paymentMethod;
   return (
     <>
       <div className="bg-white p-4 shadow-card rounded-lg">
@@ -51,12 +32,9 @@ const OrderPaymentMethod = () => {
           title="Hình thức thanh toán"
           prefix={<RiWalletFill size={24} color="#09A965" />}
           suffix={
-            <div
-              className="p-0.5 rounded-full text-[#60728F] bg-opacity-35 bg-[#B9C7DC]"
-              onClick={() => setVisible(true)}
-            >
-              <Icon icon="zi-chevron-right" size={21} />
-            </div>
+            <i className="text-primary" onClick={() => setVisible(true)}>
+              <RiEditFill size={20} />
+            </i>
           }
         >
           <div
@@ -78,7 +56,11 @@ const OrderPaymentMethod = () => {
           {paymentMethods?.map((payment) => (
             <div
               key={payment?.value}
-              className="border p-4 rounded-lg border-neutral-200"
+              className={`border p-4 rounded-lg  ${
+                paymentMethod === payment?.value
+                  ? "border-primary"
+                  : "border-neutral-200"
+              }`}
               onClick={() => {
                 if (payment?.value) {
                   updateOrderInput({
@@ -99,7 +81,7 @@ const OrderPaymentMethod = () => {
                     ? `Ví mua hàng (${parseNumber(payment.balanceAvailable)}đ)`
                     : payment?.label}
                 </div>
-                {state?.draftOrder?.order?.paymentMethod === payment?.value && (
+                {paymentMethod === payment?.value && (
                   <Icon icon="zi-check" className="text-primary" />
                 )}
               </div>

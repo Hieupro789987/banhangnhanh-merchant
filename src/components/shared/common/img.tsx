@@ -1,4 +1,3 @@
-// components/common/Img.tsx
 import { useState } from "react";
 import { FaUser, FaImage, FaExpand } from "react-icons/fa";
 import { ImageViewer } from "zmp-ui";
