@@ -172,6 +172,8 @@ export function AddressGroup({
       districtId?: string;
       wardId?: string;
     }) => {
+      console.log("locationData: ", locationData);
+
       setValue(`addressDetail`, locationData.address);
       setValue(`lat`, locationData.lat);
       setValue(`lng`, locationData.lng);
@@ -229,6 +231,7 @@ export function AddressGroup({
   };
 
   const shouldRequireWard = required && wardOptions.length > 0;
+  console.log("addressDetail: ", addressDetail);
 
   return (
     <div>

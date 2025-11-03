@@ -47,6 +47,7 @@ const Orders = () => {
         <div className="space-y-3">
           {orders.map((order) => (
             <div
+              key={order?.id}
               className="p-4 shadow-card bg-white rounded-lg"
               // onClick={() => handleNavigateToDetail(order)}
             >

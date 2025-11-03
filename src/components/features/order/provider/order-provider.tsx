@@ -365,47 +365,49 @@ export const OrderProvider: React.FC<{ children: React.ReactNode }> = ({
         return;
       }
 
-      const items = state?.draftOrder?.order?.items?.map((item) => ({
-        id: item?.id || "",
-        amount: item?.basePrice || 0,
-      }));
+      generateFinalOrder();
 
-      const data = {
-        desc: `Thanh toán`,
-        item: items || [],
-        amount: state.finalOrder?.amount || 0,
-        method: JSON.stringify({
-          id: "COD",
-          // id: state.finalOrder?.paymentMethod,
-          // isCustom: !ALL_PAYMENT_METHODS.includes(
-          //   state.finalOrder?.paymentMethod as PAYMENT_METHOD_ZALO
-          // ),
-        }),
-      };
+      // const items = state?.draftOrder?.order?.items?.map((item) => ({
+      //   id: item?.id || "",
+      //   amount: item?.basePrice || 0,
+      // }));
 
-      const mac = (await getMac({
-        variables: {
-          dataMac: data as any,
-        },
-      })) as any;
+      // const data = {
+      //   desc: `Thanh toán`,
+      //   item: items || [],
+      //   amount: state.finalOrder?.amount || 0,
+      //   method: JSON.stringify({
+      //     id: "COD",
+      //     // id: state.finalOrder?.paymentMethod,
+      //     // isCustom: !ALL_PAYMENT_METHODS.includes(
+      //     //   state.finalOrder?.paymentMethod as PAYMENT_METHOD_ZALO
+      //     // ),
+      //   }),
+      // };
 
-      const macKey = mac?.data?.generateMacZaloMiniApp;
+      // const mac = (await getMac({
+      //   variables: {
+      //     dataMac: data as any,
+      //   },
+      // })) as any;
 
-      if (macKey) {
-        createOrder({
-          ...data,
-          mac: macKey || "",
-          success: (data) => {
-            const { orderId } = data;
-            if (orderId) {
-              generateFinalOrder();
-            }
-          },
-          fail: (err) => {
-            console.log("Payment error: ", err);
-          },
-        });
-      }
+      // const macKey = mac?.data?.generateMacZaloMiniApp;
+
+      // if (macKey) {
+      //   createOrder({
+      //     ...data,
+      //     mac: macKey || "",
+      //     success: (data) => {
+      //       const { orderId } = data;
+      //       if (orderId) {
+      //         generateFinalOrder();
+      //       }
+      //     },
+      //     fail: (err) => {
+      //       console.log("Payment error: ", err);
+      //     },
+      //   });
+      // }
     } catch (e) {
       console.log("Payment error: ", e);
     }

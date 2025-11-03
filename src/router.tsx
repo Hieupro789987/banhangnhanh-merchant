@@ -98,6 +98,7 @@ const router = createBrowserRouter(
                 noBack: false,
                 noHeader: false,
                 noFooter: true,
+                scrollRestoration: 0,
               },
             },
           ],
@@ -109,6 +110,8 @@ const router = createBrowserRouter(
             title: "Danh sách đơn hàng",
             noFooter: true,
             noHeader: true,
+
+            scrollRestoration: 0,
           },
         },
         {

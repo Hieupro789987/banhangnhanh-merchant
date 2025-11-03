@@ -49,7 +49,6 @@ export const useOrders = (params: UseOrdersParams = {}) => {
     {
       variables,
       skip: !enabled,
-      notifyOnNetworkStatusChange: true,
     }
   );
 
@@ -180,7 +179,7 @@ export const useSimpleOrders = (params: UseOrdersParams = {}) => {
     {
       variables,
       skip: !enabled,
-      notifyOnNetworkStatusChange: true,
+      fetchPolicy: "network-only",
     }
   );
 

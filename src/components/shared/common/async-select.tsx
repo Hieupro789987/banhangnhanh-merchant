@@ -129,9 +129,7 @@ const AsyncSelect: React.FC<AsyncSelectProps> = ({
 
           <div className="flex-1 overflow-y-auto">
             {loading ? (
-              <div className="p-4 text-center text-subtitle text-ellipsis">
-                Đang tìm kiếm...
-              </div>
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
             ) : options.length > 0 ? (
               <div className="divide-y divide-gray-100">
                 {options.map((option, index) => (

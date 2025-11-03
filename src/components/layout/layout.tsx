@@ -7,10 +7,13 @@ import { Toaster } from "react-hot-toast";
 import { ScrollRestoration } from "../shared/common/scroll-restoration";
 import Header from "@/components/layout/components/header";
 import { nativeStorage } from "zmp-sdk";
+import { useRouteHandle } from "@/hooks";
 
 export default function Layout() {
   const navigate = useNavigate();
   const loaderData = useLoaderData() as { isAuthenticated?: boolean };
+  const [handle, match] = useRouteHandle();
+
   useEffect(() => {
     const isAuthenticated = loaderData?.isAuthenticated;
     if (!isAuthenticated) {
