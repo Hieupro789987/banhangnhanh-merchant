@@ -21,9 +21,9 @@ const STATUS_COLOR_MAP: {
   };
 } = {
   warning: {
-    text: "text-yellow-400",
+    text: "text-yellow-500",
     bg: "bg-yellow-300",
-    lightBg: "bg-yellow-100",
+    lightBg: "bg-yellow-100/50",
   },
   info: {
     text: "text-blue-500",
@@ -33,12 +33,12 @@ const STATUS_COLOR_MAP: {
   purple: {
     text: "text-purple-700",
     bg: "bg-purple-500",
-    lightBg: "bg-purple-100",
+    lightBg: "bg-purple-100/40",
   },
   success: {
     text: "text-green-600",
     bg: "bg-green-500",
-    lightBg: "bg-green-100",
+    lightBg: "bg-green-100/40",
   },
   danger: {
     text: "text-red-700",
@@ -53,12 +53,12 @@ const STATUS_COLOR_MAP: {
   orange: {
     text: "text-orange-700",
     bg: "bg-orange-500",
-    lightBg: "bg-orange-100",
+    lightBg: "bg-orange-100/40",
   },
   teal: {
     text: "text-teal-700",
     bg: "bg-teal-500",
-    lightBg: "bg-teal-100",
+    lightBg: "bg-teal-100/40",
   },
 };
 

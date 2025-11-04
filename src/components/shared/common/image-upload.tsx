@@ -184,7 +184,7 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
           ) : (
             <div
               className={`
-                border border-dashed border-gray-300 rounded-lg cursor-pointer
+                border border-dashed border-gray-300 rounded-lg
                 ${avatar ? "h-24 w-24 rounded-full" : "h-32 w-32"}
                 flex flex-col items-center justify-center transition-all duration-200
                 hover:border-blue-500 hover:bg-blue-50
@@ -215,7 +215,7 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
                       src={image}
                       alt={`Uploaded ${index + 1}`}
                       className={`
-                        w-full border border-gray-300 rounded-lg cursor-pointer
+                        w-full border border-gray-300 rounded-lg
                         aspect-square
                         ${contain ? "object-contain" : "object-cover"}
                         ${avatar ? "rounded-full" : "rounded-lg"}
@@ -286,7 +286,7 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
           {currentImages.length < maxImage && (
             <div
               className={`
-                border border-dashed border-gray-300 rounded-lg cursor-pointer
+                border border-dashed border-gray-300 rounded-lg
                 aspect-square w-24
                 flex flex-col items-center justify-center transition-all duration-200
                 hover:border-blue-500 hover:bg-blue-50

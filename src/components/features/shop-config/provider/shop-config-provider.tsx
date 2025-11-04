@@ -21,7 +21,6 @@ interface ShopConfigProviderProps {
 }
 
 export function ShopConfigProvider({ children }: ShopConfigProviderProps) {
-  const { member, staff, isAuthenticated } = useAuth();
   const [token, setToken] = React.useState<string | null>(null);
 
   useEffect(() => {

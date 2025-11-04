@@ -23,4 +23,6 @@ type Query {
     staffPermissionScope: EStaffPermissionScope
   ): OrderPageData
   getOneOrder(id: ID!): Order
+
+  getAllOrderStatusValue: [OrderStatusText]
 }

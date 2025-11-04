@@ -584,3 +584,10 @@ subscription OrderStream {
     ...OrderDetailFragment
   }
 }
+
+query GetAllOrderStatusValue {
+  getAllOrderStatusValue {
+    value
+    status
+  }
+}

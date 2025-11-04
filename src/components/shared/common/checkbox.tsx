@@ -47,7 +47,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
 
   return (
     <div
-      className={`flex items-center gap-3 cursor-pointer ${
+      className={`flex items-center gap-3 ${
         disabled ? "opacity-50 cursor-not-allowed" : ""
       } ${className}`}
       onClick={handleClick}
@@ -63,7 +63,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
               ? "bg-primary border-primary"
               : "bg-white border-[#D0D5DD] hover:border-primary"
           }
-          ${disabled ? "bg-neutral-100 border-neutral-300" : "cursor-pointer"}
+          ${disabled ? "bg-neutral-100 border-neutral-300" : ""}
         `}
       >
         {/* Check Icon */}

@@ -49,7 +49,7 @@ const Radio: React.FC<RadioProps> = ({
   return (
     <div
       className={`flex items-center gap-3 ${
-        disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
+        disabled ? "opacity-50 cursor-not-allowed" : ""
       } ${className}`}
       onClick={handleClick}
     >

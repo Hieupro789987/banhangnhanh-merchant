@@ -61,11 +61,7 @@ export const ProductItem: FC<ProductItemProps> = ({
               )}
           </div>
 
-          <Icon
-            icon="zi-plus-circle"
-            size={24}
-            className="text-primary cursor-pointer"
-          />
+          <Icon icon="zi-plus-circle" size={24} className="text-primary" />
         </div>
       </div>
     </div>
@@ -74,8 +70,6 @@ export const ProductItem: FC<ProductItemProps> = ({
   return href ? (
     <TransitionLink to={href}>{content}</TransitionLink>
   ) : (
-    <div onClick={handleClick} className="cursor-pointer">
-      {content}
-    </div>
+    <div onClick={handleClick}>{content}</div>
   );
 };

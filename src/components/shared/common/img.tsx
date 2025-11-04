@@ -116,7 +116,7 @@ export function Img({
           flex items-center justify-center
           bg-gray-200 text-gray-400
           ${avatar ? `rounded-full ${sizeClasses[size]}` : "rounded-lg"}
-          ${onClick || isShowClick ? "cursor-pointer hover:bg-gray-300" : ""}
+          ${onClick || isShowClick ? " hover:bg-gray-300" : ""}
           ${className}
         `}
         onClick={handleClick}

@@ -46,10 +46,7 @@ export default function Header() {
                 <h1 className="text-sm font-bold line-clamp-1 w-50%">{name}</h1>
                 <span className="text-xs text-white">{phone}</span>
               </div>
-              <div
-                className="py-1  cursor-pointer"
-                onClick={() => navigate(-1)}
-              >
+              <div className="py-1" onClick={() => navigate(-1)}>
                 <Icon icon="zi-chevron-right" />
               </div>
             </TransitionLink>
@@ -57,10 +54,7 @@ export default function Header() {
         ) : (
           <>
             {showBack && (
-              <div
-                className="py-1  cursor-pointer"
-                onClick={() => navigate(-1)}
-              >
+              <div className="py-1" onClick={() => navigate(-1)}>
                 <Icon icon="zi-arrow-left" />
               </div>
             )}

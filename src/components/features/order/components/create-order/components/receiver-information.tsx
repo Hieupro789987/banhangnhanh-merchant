@@ -9,6 +9,7 @@ import InputWithComponents from "@/components/shared/common/input";
 import RowText from "@/components/shared/common/row-text";
 import Section from "@/components/shared/common/section";
 import { useVirtualKeyboardVisible } from "@/components/shared/hooks/useVirtualKeyboardVisible";
+import { EPickupMethod } from "@/generated/graphql";
 import { useLazyQuery } from "@apollo/client/react";
 import { formatDate } from "date-fns";
 import React, { FC, useState } from "react";
@@ -39,6 +40,10 @@ const ReceiverInformation: FC<ReceiverInformationProps> = () => {
 
   const receiverFullAddress = state?.draftOrder?.order?.receiverFullAddress;
 
+  if (
+    state?.draftOrder?.order?.pickupMethod === EPickupMethod.IN_STORE_PURCHASE
+  )
+    return null;
   return (
     <div className="bg-white p-4 shadow-card rounded-lg">
       <Section

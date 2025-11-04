@@ -99,10 +99,7 @@ const OrderDeliveryService = () => {
           title="Hình thức giao hàng"
           prefix={<RiTruckFill size={24} color="#2CA3AD" />}
           suffix={
-            <i
-              className="text-primary cursor-pointer"
-              onClick={() => setVisible(true)}
-            >
+            <i className="text-primary" onClick={() => setVisible(true)}>
               <RiEditFill size={20} />
             </i>
           }

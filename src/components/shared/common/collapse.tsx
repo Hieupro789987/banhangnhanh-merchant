@@ -24,7 +24,7 @@ function CollapseItem(props: CollapseProps["items"][number]) {
   return (
     <>
       <div
-        className="py-3 flex justify-between items-center space-x-4 cursor-pointer"
+        className="py-3 flex justify-between items-center space-x-4"
         onClick={() => setCollapsed(!collapsed)}
       >
         <div className="text-base font-medium">{props.title}</div>

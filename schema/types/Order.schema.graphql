@@ -158,3 +158,8 @@ type OrderPageData {
   pagination: Pagination
   error: Mixed
 }
+
+type OrderStatusText {
+  status: String
+  value: String
+}

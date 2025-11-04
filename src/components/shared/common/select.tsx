@@ -50,8 +50,6 @@ export default function Select(props: SelectProps) {
     }
   }, [defaultValue]);
 
-  console.log(`value: ${placeholder}`, value);
-
   return (
     <ZaloSelect
       ref={innerRef}

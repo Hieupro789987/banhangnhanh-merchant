@@ -488,7 +488,7 @@ export const InputLocation: React.FC<InputLocationProps> = ({
           {title && <div className="text-sm font-medium">{title}</div>}
           <div className="flex items-center gap-x-1">
             <i
-              className="text-xl text-danger cursor-pointer"
+              className="text-xl text-danger"
               onClick={() => setVisibleMap(true)}
             >
               <RiMap2Line />
@@ -533,7 +533,6 @@ export const InputLocation: React.FC<InputLocationProps> = ({
           <div className="mb-2 flex justify-between items-center">
             <span className="text-base font-medium">Tìm kiếm địa chỉ</span>
             <i
-              className="cursor-pointer"
               onClick={() => {
                 setVisible(false);
                 setPredictions([]);
@@ -567,7 +566,7 @@ export const InputLocation: React.FC<InputLocationProps> = ({
             dataSource={predictions}
             renderItem={(item: any) => (
               <List.Item
-                className="text-sm px-1 py-3 cursor-pointer hover:bg-gray-50 border-b border-gray-100"
+                className="text-sm px-1 py-3 hover:bg-gray-50 border-b border-gray-100"
                 key={item.place_id}
                 onClick={() => handlePlaceSelected(item)}
               >
@@ -594,7 +593,7 @@ export const InputLocation: React.FC<InputLocationProps> = ({
             <span className="text-base font-medium">
               Chọn địa chỉ trên bản đồ
             </span>
-            <i className="cursor-pointer" onClick={() => setVisibleMap(false)}>
+            <i onClick={() => setVisibleMap(false)}>
               <FaTimes size={20} />
             </i>
           </div>

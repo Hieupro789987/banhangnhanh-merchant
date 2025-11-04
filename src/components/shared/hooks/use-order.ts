@@ -10,12 +10,13 @@ import {
   GetAllOrder2QueryVariables,
 } from "@/generated/graphql";
 
+// Định nghĩa interface cho params
 interface UseOrdersParams {
   search?: string;
   status?: string[];
   limit?: number;
   page?: number;
-  order?: Record<string, any>;
+  order?: any;
   enabled?: boolean;
 }
 
@@ -29,7 +30,7 @@ export const useOrders = (params: UseOrdersParams = {}) => {
     enabled = true,
   } = params;
 
-  const variables = useMemo((): GetAllOrderQueryVariables => {
+  const variables = useMemo((): GetAllOrder2QueryVariables => {
     const filter: any = {};
     if (status.length > 0) filter.status = status;
 
@@ -45,7 +46,7 @@ export const useOrders = (params: UseOrdersParams = {}) => {
   }, [search, status, limit, page, order]);
 
   const { data, loading, error, refetch, fetchMore } = useQuery(
-    GetAllOrderDocument,
+    GetAllOrder2Document,
     {
       variables,
       skip: !enabled,

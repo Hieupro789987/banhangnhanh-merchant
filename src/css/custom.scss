@@ -7,3 +7,12 @@
   outline: none;
   box-shadow: 0 0 0 2px rgba(0, 149, 254, 0.2);
 }
+
+.zaui-tabs-tabbar {
+  grid: "none" !important;
+  display: flex !important;
+  background-color: #ffffff !important;
+  .zaui-tabs-tabbar-item {
+    font-size: 14px;
+  }
+}

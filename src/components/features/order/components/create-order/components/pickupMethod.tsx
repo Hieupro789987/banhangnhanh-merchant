@@ -65,7 +65,7 @@ const PickupMethod = () => {
           {pickupMethods.map((tab) => (
             <div
               key={tab.value}
-              className={`rounded-lg border flex flex-col justify-center border-neutral-200 p-4 cursor-pointer
+              className={`rounded-lg border flex flex-col justify-center border-neutral-200 p-4
                 ${
                   state.orderDataInput.pickupMethod === tab.value
                     ? "border-primary text-primary"

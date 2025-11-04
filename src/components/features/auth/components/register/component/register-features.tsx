@@ -69,7 +69,7 @@ const FeaturesField = () => {
         return (
           <div
             key={legal.value}
-            className={`p-4 rounded-lg border cursor-pointer transition-all flex items-center justify-between ${
+            className={`p-4 rounded-lg border transition-all flex items-center justify-between ${
               isSelected
                 ? "bg-primary-light text-primary border-primary"
                 : "border-neutral-200 text-title hover:border-gray-300"
